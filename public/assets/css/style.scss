@@ -1,0 +1,282 @@
+// Formatação 
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Bungee", cursive;
+    color: #ccc;
+  }
+  body {
+    background-color: #27041b;
+  }
+  header {
+    width: 100%;
+    height: 201px;
+    background-color: #480429;
+  }
+// Pagina inicial 
+  .layout-grid {
+    display: grid;
+    grid-template-columns: 80% 20%;
+  }
+  .logo {
+    margin-top: 60px;
+    .logotipo {
+      width: 189px;
+      height: 85px;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+  .menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img {
+      width: 61px;
+      height: 61px;
+    }
+  }
+  .search {
+    height: 100px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    input {
+      background-color: #ccc;
+      color: #555053;
+      height: 47px;
+      width: 233px;
+      border-radius: 9px;
+      font-family: Barlow;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 19px;
+    }
+  }
+  .lupa {
+    position: absolute;
+    right: 90px;
+    button {
+      border: none;
+      background-color: #ccc;
+    }
+  }
+  .funil {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img {
+      width: 51px;
+      height: 44px;
+    }
+  }
+  
+  .clientes {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .card {
+    margin: 0 auto;
+    width: 155px;
+    height: 155px;
+    border-radius: 50%;
+  }
+  .imagem {
+    width: 100%;
+    height: 100%;
+    img {
+      border-radius: 50%;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  .descricao {
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    p {
+      font-family: Barlow;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 19px;
+      margin: 0;
+    }
+  }
+  
+  @media (max-width: 425px) {
+    .lupa {
+      right: 110px;
+    }
+  }
+  @media (max-width: 375px) {
+    .lupa {
+      right: 65px;
+    }
+  }
+  
+  @media (max-width: 320px) {
+    .lupa {
+      right: 25px;
+    }
+    .card {
+      width: 120px;
+      height: 120px;
+    }
+  }
+  
+  // pagina single clientes
+  
+  .voltar {
+    width: 100%;
+    height: 124px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #760f47;
+  }
+  .voltar a {
+    text-decoration: none;
+    color: #ccc;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 29px;
+  }
+  
+  .nome p {
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 29px;
+  }
+  .tags {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+  }
+  .tag {
+    background-color: #ff0000;
+    height: 25px;
+    border-radius: 5px;
+    p {
+      margin-top: 3px;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 19px;
+    }
+    .cidade,
+    .anos,
+    .cache {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  .cliente-descricao {
+    p {
+      font-family: Barlow;
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 22px;
+    }
+    .btn-mais a {
+      width: 75px;
+      height: 26px;
+      background-color: #ff0000;
+      border-radius: 5px;
+      color: #ccc;
+      display: flex;
+      align-items: center;
+    }
+  }
+  .galeria {
+    display: flex;
+    position: relative;
+    .foto,
+    .foto-1,
+    .foto-2 {
+      border-radius: 50%;
+      width: 155px;
+      height: 155px;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    .foto {
+      position: absolute;
+      z-index: 1;
+      left: 0;
+    }
+    .foto-1 {
+      position: absolute;
+      z-index: 2;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .foto-2 {
+      position: absolute;
+      z-index: 3;
+      right: 0;
+    }
+  }
+  .caches {
+    margin-top: 200px;
+  }
+  .meu-cache {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    grid-gap: 10px;
+  }
+  .cache-bg {
+    height: 25px;
+    background-color: #ff0000;
+    border-radius: 5px;
+    font-size: 14px;
+    font-family: Bungee;
+    font-weight: 400;
+    line-height: 19px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .meu-servicos {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    grid-gap: 10px;
+  }
+  
+  .encontro {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    grid-gap: 10px;
+  }
+  
+  .rodape {
+    height: 52px;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+  }
+  .whatsapp, .mapa, .fone{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    a{
+      text-decoration: none;
+  
+    }
+  }
+  .whatsapp {
+    background-color: #760f47;
+  }
+  .mapa {
+    background-color: #4c0b36;
+  }
+  .fone {
+    background-color: #760f47;
+  }
+  
