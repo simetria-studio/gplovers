@@ -1,21 +1,21 @@
 @extends('layouts.main')
 @section('content')
-    <header>
+    <div class="header">
         <div class="container-fluid">
-            <div class="layout-grid">
-                <div class="logo">
+            <div class="row">
+                <div class="logo col-12">
                     <div class="logotipo">
                         <a href="/home">
                             <img src="{{ url('/assets/img/logo.png') }}" alt="logotipo" />
                         </a>
                     </div>
                 </div>
-                <div class="menu mt-5">
+                {{-- <div class="menu mt-5">
                     <a href="">
                         <img src="{{ url('/assets/img/menu.png') }}" alt="menu" />
                     </a>
-                </div>
-                <div class="search">
+                </div> --}}
+                <div class="search col-8">
                     <input type="search" name="" id="" placeholder="  ONDE VOCÊ ESTA?" />
                     <div class="lupa">
                         <button>
@@ -23,14 +23,14 @@
                         </button>
                     </div>
                 </div>
-                <div class="funil">
+                <div class="funil col-4">
                     <a href="">
                         <img src="{{ url('/assets/img/funil.png') }}" alt="" />
                     </a>
                 </div>
             </div>
         </div>
-    </header>
+    </div>
     <div class="container">
         <div class="clientes mt-5">
             <div class="card mb-5">

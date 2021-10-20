@@ -11,6 +11,7 @@
         rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{asset('assets/css/style.min.css')}}" />
+    <link rel="stylesheet" href="{{asset('assets/css/menu.min.css')}}" />
     <title>GP Lovers</title>
 </head>
 
@@ -29,9 +30,37 @@
         </div>
     </div>
 
-    <div>
-        @yield('content')
+    <div class="nav-menu">
+        <nav id="nav" class="nav" role="navigation">
+            <!-- ACTUAL NAVIGATION MENU -->
+            <ul class="nav__menu" id="menu" tabindex="-1" aria-label="main navigation" hidden>
+                <li class="nav__item"><a href="#" class="nav__link">Home</a></li>
+                <li class="nav__item"><a href="#" class="nav__link">Shop</a></li>
+                <li class="nav__item"><a href="#" class="nav__link">Blog</a></li>
+                <li class="nav__item"><a href="#" class="nav__link">About</a></li>
+                <li class="nav__item"><a href="#" class="nav__link">Contact</a></li>
+            </ul>
+            
+            <!-- MENU TOGGLE BUTTON -->
+            <a href="#nav" class="nav__toggle" role="button" aria-expanded="false" aria-controls="menu">
+                <svg class="menuicon" xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 50 50">
+                    <title>Toggle Menu</title>
+                    <g>
+                        <line class="menuicon__bar" x1="13" y1="16.5" x2="37" y2="16.5"/>
+                        <line class="menuicon__bar" x1="13" y1="24.5" x2="37" y2="24.5"/>
+                        <line class="menuicon__bar" x1="13" y1="24.5" x2="37" y2="24.5"/>
+                        <line class="menuicon__bar" x1="13" y1="32.5" x2="37" y2="32.5"/>
+                        <circle class="menuicon__circle" r="23" cx="25" cy="25" />
+                    </g>
+                </svg>
+            </a>
+            
+            <!-- ANIMATED BACKGROUND ELEMENT -->
+            <div class="splash"></div>
+        </nav>
     </div>
+
+    @yield('content')
 
     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
         @csrf
@@ -41,7 +70,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
+    
+    <script src="{{asset('assets/js/menu.js')}}"></script>
     <script src="{{asset('assets/js/script.js')}}"></script>
 </body>
 

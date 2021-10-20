@@ -22,7 +22,7 @@ use App\Http\Controllers\Auth\RegisterController;
 //     return view('idade');
 // });
 Route::get('/', function () {
-    return view('index1');
+    return view('home');
 });
 
 Route::post('/logout',  [LoginController::class, 'logout'])->name('logout');
@@ -32,7 +32,9 @@ Route::get('/registro',  [RegisterController::class, 'index'])->name('register')
 Route::post('/registro',  [RegisterController::class, 'register'])->name('register');
 
 Route::middleware(['auth:web'])->group(function () {
-    Route::get('/perfil', [PerfilController::class, 'index'])->name('perfil');
+    Route::prefix('perfil')->group(function () {
+        Route::get('/conta', [PerfilController::class, 'conta'])->name('perfil.conta');
+    });
     // Route::get('/perfil', function () {
     //     return view('index2');
     // });

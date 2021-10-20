@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('content')
 <div class="voltar">
-    <a href="/home">VOLTAR</a>
+    <a href="/">VOLTAR</a>
   </div>
   <div class="container">
     <div class="nome text-center mt-3">

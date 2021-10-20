@@ -29,7 +29,7 @@ class LoginController extends Controller
             if (Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password],$remember)) {
 
                 if($cookie_maior18) setcookie('cookie_maior18', $cookie_maior18, null, '/');
-                return response()->json(route('perfil'), 200);
+                return response()->json(route('perfil.conta'), 200);
             }
         }else{
             return response()->json(['invalid' => 'CPF ou Senha invalidos'], 422);
