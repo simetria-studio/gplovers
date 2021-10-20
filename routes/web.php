@@ -13,10 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route::get('/idade', function () {
+//     return view('idade');
+// });
 Route::get('/', function () {
-    return view('idade');
-});
-Route::get('/home', function () {
     return view('index1');
 });
 Route::get('/perfil', function () {

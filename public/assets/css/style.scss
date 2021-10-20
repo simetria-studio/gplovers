@@ -279,4 +279,49 @@
   .fone {
     background-color: #760f47;
   }
-  
+
+.btn-c-red {
+  background-color: #ff0000;
+  border: #ff0000 1px solid;
+  color: #ccc;
+  border-radius: 12px;
+}
+.btn-c-red:hover {
+  background-color: #ccc;
+  color: #ff0000 !important;
+}
+
+.btn-c-purple {
+  background-color: #bd1465;
+  border: #bd1465 1px solid;
+  color: #ccc;
+  border-radius: 12px;
+}
+.btn-c-purple:hover {
+  background-color: #ccc;
+  color: #bd1465 !important;
+}
+
+.cookie-idade {
+  position: absolute;
+  z-index: 10;
+  background-color: #27041b;
+  width: 0;
+  height: 100%;
+  overflow: hidden;
+
+  .btns {
+    // text-align: center;
+    // display: flex;
+    // justify-content: space-evenly;
+
+    .btn {
+      font-size: 2rem;
+      height: auto;
+    }
+  }
+  // .btn {
+  //   font-size: 2rem;
+  //   height: auto;
+  // }
+}
