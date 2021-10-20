@@ -15,6 +15,7 @@ class CreateDadosTable extends Migration
     {
         Schema::create('dados', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id');
             $table->string('titulo');
             $table->text('descricao')->nullable();
             $table->string('nome');

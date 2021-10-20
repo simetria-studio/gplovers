@@ -11,6 +11,5 @@ class Contato extends Model
     protected $fillable = [
         'telefone',
         'whats',
-
     ];
 }

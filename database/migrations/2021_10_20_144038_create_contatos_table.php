@@ -15,6 +15,7 @@ class CreateContatosTable extends Migration
     {
         Schema::create('contatos', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id');
             $table->string('telefone')->nullable();
             $table->integer('whats')->default(0);
             $table->timestamps();
