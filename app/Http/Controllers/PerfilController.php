@@ -46,4 +46,10 @@ class PerfilController extends Controller
 
         return response()->json(['success', 'redirect', route('perfil.conta')], 200);
     }
+
+    // Dados do perfil
+    public function dados()
+    {
+        return view('perfil.dados', get_defined_vars());
+    }
 }
