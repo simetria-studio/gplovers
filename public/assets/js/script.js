@@ -1,5 +1,11 @@
 // Inicialiação das funções
 $(document).ready(function() {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
     $('#form-login').find('input').on('keyup', function (e) {
         if (e.keyCode == 13) {
             $('#btn-login').trigger('click');
@@ -61,6 +67,73 @@ $(document).ready(function() {
                 }
             });
         }
+    });
+
+    // Btn para salvar
+    $(document).on('click', '.btn-save', function(e) {
+        var btn = $(this);
+        var btnText = $(this).html();
+        var route = $(this).data('route');
+        var target = $(this).data('target');
+
+        var form_dados = new FormData($(target)[0]);
+
+        btn.prop('disabled', true);
+        $(target).find('input').prop('disabled', true);
+        $(target).find('.invalid-feedbeck').remove();
+
+        $.ajax({
+            url: route,
+            type: 'POST',
+            data: form_dados,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: (data) => {
+                // console.log(data);
+
+                if(data[0] == 'success') {
+                    switch(data[1]){
+                        case 'local':
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Dados atualizados com sucesso!'
+                            });
+                        break;
+                        case 'redirect':
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Dados atualizados com sucesso!'
+                            });
+
+                            setTimeout(() => {window.location.href = data[2]}, 2000);
+                        break;
+                        case 'step':
+                        break;
+                    }
+                }
+            },
+            error: (err) => {
+                // console.log(err);
+                var errors = err.responseJSON.errors;
+
+                btn.html(btnText);
+                btn.prop('disabled', false);
+                $(target).find('input').prop('disabled', false);
+
+                if (errors) {
+                    // console.log(errors);
+                    $.each(errors, (key, value) => {
+                        $(target).find('[name="' + key + '"]').parent().append('<span class="invalid-feedbeck">' + value[0] + '</span>');
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: err.responseJSON.invalid
+                    });
+                }
+            }
+        });
     });
 
     // Cookies-Idade

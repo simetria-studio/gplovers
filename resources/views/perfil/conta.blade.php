@@ -14,6 +14,21 @@
         </div>
     </div>
     <div class="container">
-        
+        <div class="row mt-3 justify-content-center">
+            <div class="col-12">
+                <div class="card-c">
+                    <div class="card-c-body">
+                        <div class="row">
+                            <div class="col-12">Nome: {{auth()->user()->name}}</div>
+                            <div class="col-12">Email: {{auth()->user()->email}}</div>
+
+                            <div class="col-12 mt-3 text-center">
+                                <a href="{{route('perfil.conta.editar')}}" class="btn btn-c-purple">Editar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
