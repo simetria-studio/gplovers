@@ -340,7 +340,7 @@ body {
       color: #ccc;
       display: flex;
       flex-wrap: wrap;
-      input {
+      input, select, textarea {
           color: #ccc;
           font-family: montserrat;
           background-color: #480429;
@@ -353,9 +353,13 @@ body {
       }
 
       @media (max-width: 380px){
-          input {
+          input, select {
               height: 43px;
           }
+      }
+
+      textarea {
+        height: 120px;
       }
 
       ::-webkit-input-placeholder {

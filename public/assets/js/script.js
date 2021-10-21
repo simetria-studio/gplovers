@@ -78,6 +78,7 @@ $(document).ready(function() {
 
         var form_dados = new FormData($(target)[0]);
 
+        btn.html('<div class="spinner-border text-light" role="status"></div>');
         btn.prop('disabled', true);
         $(target).find('input').prop('disabled', true);
         $(target).find('.invalid-feedbeck').remove();
@@ -109,6 +110,19 @@ $(document).ready(function() {
                             setTimeout(() => {window.location.href = data[2]}, 2000);
                         break;
                         case 'step':
+                            btn.html(btnText);
+                            btn.prop('disabled', false);
+                            $(target).find('input').prop('disabled', false);
+                            if(data[2] == 'next') $(target).find('.next').trigger('click');
+
+                            if(data[2] == 'finish') {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Dados atualizados com sucesso!'
+                                });
+    
+                                setTimeout(() => {window.location.href = data[3]}, 2000);
+                            }
                         break;
                     }
                 }

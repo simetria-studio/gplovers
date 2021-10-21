@@ -52,4 +52,18 @@ class PerfilController extends Controller
     {
         return view('perfil.dados', get_defined_vars());
     }
+
+    public function editarDados()
+    {
+        return view('perfil.editarDados', get_defined_vars());
+    }
+
+    public function atualizarDados(Request $request)
+    {
+        switch($request->step){
+            case 'info_data':
+                return response()->json(['success', 'step', 'next'], 200);
+            break;
+        }
+    }
 }

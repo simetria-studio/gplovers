@@ -38,6 +38,9 @@ Route::middleware(['auth:web'])->group(function () {
 
         Route::get('/conta/editar', [PerfilController::class, 'editarConta'])->name('perfil.conta.editar');
         Route::post('/conta/editar', [PerfilController::class, 'updateConta'])->name('perfil.conta.editar');
+
+        Route::get('/dados/editar', [PerfilController::class, 'editarDados'])->name('perfil.dados.editar');
+        Route::post('/dados/atualizar', [PerfilController::class, 'atualizarDados'])->name('perfil.dados.atualizar');
     });
     // Route::get('/perfil', function () {
     //     return view('index2');
