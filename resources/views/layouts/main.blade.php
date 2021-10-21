@@ -30,43 +30,23 @@
         </div>
     </div>
 
-    {{-- <div class="nav-menu">
-        <nav id="nav" class="nav" role="navigation">
-            <!-- ACTUAL NAVIGATION MENU -->
-            <ul class="nav__menu" id="menu" tabindex="-1" aria-label="main navigation" hidden>
-                <li class="nav__item"><a href="{{route('login')}}" class="nav__link">Login</a></li>
-                <li class="nav__item"><a href="{{route('register')}}" class="nav__link">Registrar-se</a></li>
-                @if(Request::routeIs('home') == false) <li class="nav__item"><a href="{{route('home')}}" class="nav__link">Home</a></li> @endif
-            </ul>
-            
-            <!-- MENU TOGGLE BUTTON -->
-            <a href="#nav" class="nav__toggle" role="button" aria-expanded="false" aria-controls="menu">
-                <svg class="menuicon" xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 50 50">
-                    <title>Toggle Menu</title>
-                    <g>
-                        <line class="menuicon__bar" x1="13" y1="16.5" x2="37" y2="16.5"/>
-                        <line class="menuicon__bar" x1="13" y1="24.5" x2="37" y2="24.5"/>
-                        <line class="menuicon__bar" x1="13" y1="24.5" x2="37" y2="24.5"/>
-                        <line class="menuicon__bar" x1="13" y1="32.5" x2="37" y2="32.5"/>
-                        <circle class="menuicon__circle" r="23" cx="25" cy="25" />
-                    </g>
-                </svg>
-            </a>
-            
-            <!-- ANIMATED BACKGROUND ELEMENT -->
-            <div class="splash"></div>
-        </nav>
-    </div> --}}
-
-    <div class="nav-trigger js_navbar">
-        <span></span><span></span><span></span>
-    </div>
+    @if (Request::routeIs('login') == false && Request::routeIs('register') == false)
+        <div class="nav-trigger js_navbar">
+            <span></span><span></span><span></span>
+        </div>
+    @endif
     <div class="nav-menu">
         <ul>
-            <a href="#"> <li><h2 class="mt">Home</h2><i>Go to</i></li></a>
-            <a href="#"><li><h2 class="mb">About</h2><i>Me</i></li></a>
-            <a href="#"><li><h2 class="mt">Work</h2><i>My</i></li></a>
-            <a href="#"><li><h2 class="mb">Contact</h2><i>Me</i></li></a>
+            @if (auth()->check())
+                <a href="#" onclick="event.preventDefault();"><li><h2 class="mb">Olá {{explode(' ', auth()->user()->name)[0]}}</h2></li></a>
+                <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><li><h2 class="mb">Sair</h2></li></a>
+            @else
+                <a href="{{route('login')}}"><li><h2 class="mb">Login</h2></li></a>
+                <a href="{{route('register')}}"><li><h2 class="mt">Registrar-se</h2></li></a>
+            @endif
+            @if(Request::routeIs('home') == false) <a href="{{route('home')}}"> <li><h2 class="mt">Home</h2></li></a> @endif
+            @if(Request::routeIs('perfil.conta') ==  false) <a href="{{route('perfil.conta')}}"><li><h2 class="mb">Conta</h2></li></a> @endif
+            @if(Request::routeIs('perfil.dados') ==  false) <a href="{{route('perfil.dados')}}"><li><h2 class="mb">Perfil</h2></li></a> @endif
         </ul>
     </div>
 

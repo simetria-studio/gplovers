@@ -34,6 +34,7 @@ Route::post('/registro',  [RegisterController::class, 'register'])->name('regist
 Route::middleware(['auth:web'])->group(function () {
     Route::prefix('perfil')->group(function () {
         Route::get('/conta', [PerfilController::class, 'conta'])->name('perfil.conta');
+        Route::get('/dados', [PerfilController::class, 'conta'])->name('perfil.dados');
     });
     // Route::get('/perfil', function () {
     //     return view('index2');
