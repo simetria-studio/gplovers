@@ -1,195 +1,305 @@
-// ---------------------------
-// Vars & Helper Functions
-// ---------------------------
+$cursive: 'Advent Pro', sans-serif;
+$gray: #23222a;
+$white: #fff;
+$red: #480429;
+$black: #000;
+$md-width: 62em;
+$sm-width: 48em;
+$xs-width: 30em;
 
-:root {
-    --screen-height:    560px;
-    --splash-bg-color:  #480429;
+@mixin sm {
+  @media (min-width: #{$sm-width}) and (max-width: #{$md-width - 0.0625em}) {
+    @content;
+  }
 }
-// calculate a circle's circumference based on radius
-@function circumference($r){
-$pi: 3.141592653;
-@return 2*$pi*$r;
+@mixin xs {
+  @media (max-width: #{$xs-width}) {
+    @content;
+  }
 }
 
-// ---------------------------
-// Main Navigation Menu
-// ---------------------------
+* {
+  box-sizing: border-box;
+   -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: $cursive;
+  overflow-x: hidden;
+}
+
+section {
+  width: 100%;
+  padding: 0 7%;
+  display: table;
+  margin: 0;
+  max-width: none;
+  background-color: $gray;
+  height: 100vh;
+  color: $white;
+}
+
+.content {
+  display: table-cell;
+  vertical-align: middle;
+  color: $white;
+}
+
+.nav-trigger {
+	width: 30px;
+	height: 30px;
+	position: fixed;
+	top: 10px;
+	right: 10px;
+	z-index: 20;
+	cursor: pointer;
+	-webkit-transition: top .1s ease-in-out;
+	transition: top .1s ease-in-out;
+	span {
+		display: block;
+		width: 100%;
+		height: 2px;
+		background: $white;
+		margin: 7px auto;
+		-webkit-transition: all 0.3s ease-in-out;
+		transition: all 0.3s ease-in-out;
+		box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.3);
+		&:first-child {
+			top: 0;
+			left: 0;
+		}
+		&:nth-child(2) {
+			width: 20px;
+			top: 10px;
+			left: 0;
+		}
+		&:last-child {
+			top: 20px;
+			left: 0;
+		}
+	}
+	.on {
+		top: 10px;
+	}
+}
+
+.nav-trigger.on span:first-child {
+-webkit-transform: translateY(10px) rotate(45deg);
+	transform: translateY(10px) rotate(45deg);
+}
+
+.nav-trigger.on span:nth-child(2) {
+-webkit-transform: translateX(50px);
+	transform: translateX(50px);
+opacity: 0;
+}
+
+.nav-trigger.on span:last-child {
+-webkit-transform: translateY(-8px) rotate(-45deg);
+	transform: translateY(-8px) rotate(-45deg);
+}
+
+.nav-trigger-dark {
+	width: 30px;
+	height: 30px;
+	position: fixed;
+	top: 10px;
+	right: 10px;
+	z-index: 20;
+	cursor: pointer;
+	-webkit-transition: top .1s ease-in-out;
+	transition: top .1s ease-in-out;
+	span {
+		display: block;
+		width: 100%;
+		height: 2px;
+		background: $black;
+		margin: 7px auto;
+		-webkit-transition: all 0.3s ease-in-out;
+		transition: all 0.3s ease-in-out;
+		box-shadow: 0 0 3px 1px rgba(255, 255, 255, 0.3);
+		&:first-child {
+			top: 0;
+			left: 0;
+		}
+		&:nth-child(2) {
+			width: 20px;
+			top: 10px;
+			left: 0;
+		}
+		&:last-child {
+			top: 20px;
+			left: 0;
+		}
+	}
+	.on {
+		top: 10px;
+	}
+}
+
+.nav-trigger-dark.on span:first-child {
+-webkit-transform: translateY(10px) rotate(45deg);
+	transform: translateY(10px) rotate(45deg);
+}
+
+.nav-trigger-dark.on span:nth-child(2) {
+-webkit-transform: translateX(50px);
+	transform: translateX(50px);
+opacity: 0;
+}
+
+.nav-trigger-dark.on span:last-child {
+-webkit-transform: translateY(-8px) rotate(-45deg);
+	transform: translateY(-8px) rotate(-45deg);
+}
+
 .nav-menu {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    z-index: 10;
-    overflow: hidden;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	display: none;
+	z-index: 19;
+	overflow: hidden;
+	ul {
+		list-style-type: none;
+		padding: 0;
+		margin: 0;
+		width: 100%;
+		max-width: 100%;
+		text-align: center;
+		position: relative;
+		-webkit-transition: opacity .35s, visibility .35s, height .35s;
+		transition: opacity .35s, visibility .35s, height .35s;
+		a {
+			position:relative;
+			float: left;
+			margin: 0;
+			width: 25%;
+			height: 100vh;
+			text-align: center;
+			cursor: pointer;
+			background: $red;
+			color: $white;
+			text-decoration: none;
+			@include xs {
+				width: 100%;
+				height:25vh;
+			}
+			li {
+				position: absolute;
+				text-transform: uppercase;
+				font-family: $cursive;
+				top:45%;
+				left:0;
+				position:relative;
+				-webkit-animation: fadeInRight .5s ease forwards;
+				animation: fadeInRight .5s ease forwards;
+				@include xs {
+					top: 25%;
+				}
+			}
+			h2.mb {
+				-webkit-transition: -webkit-transform 0.35s;
+				transition: -webkit-transform 0.35s;
+				transition: transform 0.35s;
+				transition: transform 0.35s, -webkit-transform 0.35s;
+				margin-bottom: -20px;
+				font-size: 2.25rem; /* 36/16 */
+				@include xs {
+					font-size: 1.688rem; /* 27/16 */
+				}
+				@include sm {
+					font-size:2rem; /* 32/16 */
+					margin-bottom: -13px;;
+				}
+			}
+			h2.mt {
+				-webkit-transition: -webkit-transform 0.35s;
+				transition: -webkit-transform 0.35s;
+				transition: transform 0.35s;
+				transition: transform 0.35s, -webkit-transform 0.35s;
+				margin-bottom: -60px;
+				font-size: 2.25rem; /* 36/16 */
+				@include xs {
+					font-size: 1.688rem; /* 27/16 */
+				}
+				@include sm {
+					font-size:2rem; /* 32/16 */
+				}
+			}
+			i {
+				font-style: normal;
+				opacity: 0;
+				-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+				transition: opacity 0.35s, -webkit-transform 0.35s;
+				transition: opacity 0.35s, transform 0.35s;
+				transition: opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;
+				-webkit-transform: translate3d(0,-30px,0);
+				transform: translate3d(0,-30px,0);
+				font-size: 1.875rem; /* 30/16 */
+				@include xs {
+					display: none;
+				}
+			}
+			&:hover {
+				background: $white;
+				color: $red;
+				h2 {
+					-webkit-transform: translate3d(0,0,0);
+							transform: translate3d(0,0,0);
+				}
+				i {
+					opacity: 1;
+					-webkit-transform: translate3d(0,0,0);
+					transform: translate3d(0,0,0);
+				}
+			}
+			&.active {
+				background: $white;
+				color: $red;
+				&:hover {
+					color: $black;
+				}
+			}
+		}
+	}
 }
 
-.nav {
-    // Toggle Button
-    &__toggle {
-        display:inline-block;
-        position:absolute;
-        z-index:10;
-        padding:0;
-        border:0;
-        background:transparent;
-        outline:0;
-        right:2em;
-        top:3em;
-        cursor:pointer;
-        border-radius:50%;
-        transition:background-color .15s linear;
-        
-        &:hover,
-        &:focus {
-            background-color:rgba(0,0,0,.5);
-        }
-    }
-    
-    &__menu {
-        display:flex;
-        flex-direction:column;
-        justify-content:center;
-        height:var(--screen-height);
-        position:relative;
-        z-index:5;
-        visibility:hidden;
-    }
-    
-    &__item {
-        opacity:0;
-        transition: all .3s cubic-bezier(0.000, 0.995, 0.990, 1.000) .3s;
-    }
-    @for $i from 1 through 5 {
-        &__item:nth-child(#{$i}){
-            transform:translateY(-40px * $i);
-        }
-    }
-    
-    &__link {
-        color:white;
-        display:block;
-        text-align:center;
-        text-transform:uppercase;
-        letter-spacing:5px;
-        font-size:1.25rem;
-        text-decoration:none;
-        padding:1rem;
-        
-        &:hover,
-        &:focus {
-            outline:0;
-            background-color:rgba(0,0,0,0.2);
-        }
-    }
+@-webkit-keyframes fadeInRight {
+	0% {
+		opacity: 0;
+		left: 20%;
+	}
+	100% {
+		opacity: 1;
+		left: 0;
+	}
 }
 
-// ---------------------------
-// SVG Menu Icon
-// ---------------------------
-.menuicon {
-    display:block;
-    cursor:pointer;
-    color: white;
-    
-    transform:rotate(0deg);
-    transition: .3s cubic-bezier(0.165, 0.840, 0.440, 1.000); 
-    
-    &__bar,
-    &__circle {
-        fill:none;
-        stroke: currentColor;
-        stroke-width:3;
-        stroke-linecap:round;
-    }
-    &__bar {
-        transform: rotate(0deg);
-        transform-origin:50% 50%;
-        transition: transform .25s ease-in-out;
-    }
-    &__circle {
-        transition: stroke-dashoffset .3s linear .1s;
-        stroke-dashoffset:circumference(23); // 23 is the <circle>'s radius
-        stroke-dasharray:circumference(23);
-    }
+@keyframes fadeInRight {
+	0% {
+		opacity: 0;
+		left: 20%;
+	}
+	100% {
+		opacity: 1;
+		left: 0;
+	}
 }
 
-// ---------------------------
-// Circular Splash Background
-// ---------------------------
-.splash {
-    position:absolute;
-    top:40px;
-    right:40px;
-    width: 1px;
-    height: 1px;
-    
-    &::after {
-        content:"";
-        display:block;
-        position:absolute;
-        border-radius:50%;
-        background-color:var(--splash-bg-color);
-        
-        // screen diameter can be 142vmax at most,
-        // circle needs to be twice that size to cover it
-        width:284vmax;
-        height:284vmax;
-        top:-142vmax;
-        left:-142vmax;
-        
-        transform: scale(0);
-        transform-origin:50% 50%;
-        transition: transform .5s cubic-bezier(0.755, 0.050, 0.855, 0.060);
-        
-        // will-change tells the browser we plan to 
-        // animate this property in the near future
-        will-change:transform;
-    }
-}
-
-// ---------------------------
-// Active State
-// ---------------------------
-.nav:target,
-    .nav--open {
-        //scale the background circle to full size
-        > .splash::after {
-            transform:scale(1);
-        }
-
-        //animate the menu icon
-        .menuicon {
-        color:white;
-        transform:rotate(180deg);
-        
-        &__circle {
-            stroke-dashoffset:0;
-        }
-        &__bar:nth-child(1),
-        &__bar:nth-child(4) {
-            opacity:0;
-        }
-        &__bar:nth-child(2) {
-            transform: rotate(45deg);
-        }
-        &__bar:nth-child(3) {
-            transform: rotate(-45deg);
-        }
-        }
-
-    //show the nav items
-    .nav {
-        &__menu {
-            visibility:visible;
-        }
-    
-        &__item {
-            opacity:1;
-            transform:translateY(0);
-        }
-    }
+.bgwhite {
+  background: $white;
 }

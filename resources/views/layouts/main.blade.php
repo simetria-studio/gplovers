@@ -30,15 +30,13 @@
         </div>
     </div>
 
-    <div class="nav-menu">
+    {{-- <div class="nav-menu">
         <nav id="nav" class="nav" role="navigation">
             <!-- ACTUAL NAVIGATION MENU -->
             <ul class="nav__menu" id="menu" tabindex="-1" aria-label="main navigation" hidden>
-                <li class="nav__item"><a href="#" class="nav__link">Home</a></li>
-                <li class="nav__item"><a href="#" class="nav__link">Shop</a></li>
-                <li class="nav__item"><a href="#" class="nav__link">Blog</a></li>
-                <li class="nav__item"><a href="#" class="nav__link">About</a></li>
-                <li class="nav__item"><a href="#" class="nav__link">Contact</a></li>
+                <li class="nav__item"><a href="{{route('login')}}" class="nav__link">Login</a></li>
+                <li class="nav__item"><a href="{{route('register')}}" class="nav__link">Registrar-se</a></li>
+                @if(Request::routeIs('home') == false) <li class="nav__item"><a href="{{route('home')}}" class="nav__link">Home</a></li> @endif
             </ul>
             
             <!-- MENU TOGGLE BUTTON -->
@@ -58,6 +56,18 @@
             <!-- ANIMATED BACKGROUND ELEMENT -->
             <div class="splash"></div>
         </nav>
+    </div> --}}
+
+    <div class="nav-trigger js_navbar">
+        <span></span><span></span><span></span>
+    </div>
+    <div class="nav-menu">
+        <ul>
+            <a href="#"> <li><h2 class="mt">Home</h2><i>Go to</i></li></a>
+            <a href="#"><li><h2 class="mb">About</h2><i>Me</i></li></a>
+            <a href="#"><li><h2 class="mt">Work</h2><i>My</i></li></a>
+            <a href="#"><li><h2 class="mb">Contact</h2><i>Me</i></li></a>
+        </ul>
     </div>
 
     @yield('content')

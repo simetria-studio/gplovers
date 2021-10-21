@@ -23,7 +23,7 @@ use App\Http\Controllers\Auth\RegisterController;
 // });
 Route::get('/', function () {
     return view('home');
-});
+})->name('home');
 
 Route::post('/logout',  [LoginController::class, 'logout'])->name('logout');
 Route::get('/login',  [LoginController::class, 'index'])->name('login');
