@@ -30,7 +30,7 @@
                         <div class="col-10 inputs mb-2">
                             <input type="text" name="nome" placeholder="Nome" value="{{auth()->user()->name}}" />
                         </div>
-                        <div class="col-10 inputs mb-2">
+                        <div class="col-10 inputs mb-3">
                             <select name="idade">
                                 <option value="">- Selecione a Idade -</option>
                                 @for ($i = 0; $i <= 83; $i++)
@@ -42,8 +42,9 @@
                         <div class="col-10 inputs mb-2">
                             <input type="text" name="telefone" placeholder="Telefone" />
                         </div>
-                        <div class="col-10 inputs mb-2">
-                            <input type="text" name="whats" placeholder="Whatsapp" />
+                        <div class="col-10 checkbox justify-content-start mb-3">
+                            <input class="me-2" type="checkbox" name="whats" value="true" />
+                            <label for="">Whatsapp?</label>
                         </div>
                         <div class="col-10 inputs mb-2">
                             <input type="text" name="twitter" placeholder="Link do Twitter" />

@@ -12,6 +12,17 @@ $(document).ready(function() {
         }
     });
 
+    // Telefone/Celeular
+    var behavior = function (val) {
+        return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+    },
+    options_fone = {
+        onKeyPress: function (val, e, field, options_fone) {
+            field.mask(behavior.apply({}, arguments), options_fone);
+        }
+    };
+    $('[name="telefone"]').mask(behavior, options_fone);
+
     $(document).on('click', '#btn-login', function () {
         var btn = $(this);
         var form = $('#form-login').serialize();

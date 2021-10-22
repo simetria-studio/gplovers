@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Dado;
+use App\Models\Contato;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -62,6 +64,32 @@ class PerfilController extends Controller
     {
         switch($request->step){
             case 'info_data':
+                $dado = Dado::where('user_id', auth()->user()->id);
+                $dados['user_id']   = auth()->user()->id;
+                $dados['titulo']    = $request->titulo;
+                $dados['descricao'] = $request->descricao;
+                $dados['nome']      = $request->nome;
+                $dados['idade']     = $request->idade;
+                $dados['twitter']   = $request->twitter;
+                $dados['instagram'] = $request->instagram;
+
+                if($dado->first()){
+                    $dado->update($dados);
+                }else{
+                    Dado::create($dados);
+                }
+
+                $contato = Contato::where('user_id', auth()->user()->id);
+                $contatos['user_id']    = auth()->user()->id;
+                $contatos['telefone']   = $request->telefone;
+                $contatos['whats']      = isset($request->whats) ? 1 : 0;
+
+                if($contato->first()){
+                    $contato->update($contatos);
+                }else{
+                    Contato::create($contatos);
+                }
+
                 return response()->json(['success', 'step', 'next'], 200);
             break;
         }

@@ -9,6 +9,7 @@ class Contato extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'user_id',
         'telefone',
         'whats',
     ];
