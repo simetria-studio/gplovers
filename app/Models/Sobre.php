@@ -9,7 +9,7 @@ class Sobre extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'bairro',
+        'user_id',
         'tamanho',
         'etnia',
         'peso',

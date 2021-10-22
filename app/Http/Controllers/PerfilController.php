@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Dado;
 use App\Models\Contato;
+use App\Models\Sobre;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -57,6 +58,7 @@ class PerfilController extends Controller
 
     public function editarDados()
     {
+        $user = auth()->user();
         return view('perfil.editarDados', get_defined_vars());
     }
 
@@ -88,6 +90,26 @@ class PerfilController extends Controller
                     $contato->update($contatos);
                 }else{
                     Contato::create($contatos);
+                }
+
+                return response()->json(['success', 'step', 'next'], 200);
+            break;
+            case 'sobre':
+                $sobre = Sobre::where('user_id', auth()->user()->id);
+                $sobres['user_id']   = auth()->user()->id;
+                $sobres['tamanho']   = str_replace(',','.', $request->tamanho);
+                $sobres['etnia']     = $request->etnia;
+                $sobres['peso']      = str_replace(',','.', $request->peso);
+                $sobres['tatuagem']  = isset($request->tatuagem) ? 'SIM' : 'NÃO';
+                $sobres['peitos']    = $request->peitos;
+                $sobres['olhos']     = $request->olhos;
+                $sobres['cabelo']    = $request->cabelo;
+                $sobres['pes']       = $request->pes;
+
+                if($sobre->first()){
+                    $sobre->update($sobres);
+                }else{
+                    Sobre::create($sobres);
                 }
 
                 return response()->json(['success', 'step', 'next'], 200);

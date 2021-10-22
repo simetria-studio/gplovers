@@ -6,6 +6,9 @@ $(document).ready(function() {
         }
     });
 
+    $('[name="tamanho"]').mask('0,00', {reverse: true});
+    $('[name="peso"]').mask('000,00', {reverse: true});
+
     $('#form-login').find('input').on('keyup', function (e) {
         if (e.keyCode == 13) {
             $('#btn-login').trigger('click');

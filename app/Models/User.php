@@ -45,4 +45,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function data()
+    {
+        return $this->hasOne(Dado::class, 'user_id');
+    }
+
+    public function contato()
+    {
+        return $this->hasOne(Contato::class, 'user_id');
+    }
+
+    public function sobre()
+    {
+        return $this->hasOne(Sobre::class, 'user_id');
+    }
 }
