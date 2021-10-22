@@ -20,6 +20,7 @@
                 <li class="active"></li>
                 <li></li>
                 <li></li>
+                <li></li>
             </ul>
             <section class="field">
                 <form id="form_dados">
@@ -133,24 +134,73 @@
                 </form>
             </section>
             <section class="field">
-                <form id="form_dados3">
+                <form id="form_local">
+                    <input type="hidden" name="step" value="local">
                     <div class="row justify-content-center formulario">
-                        <div class="col-12 text-center mb-3"><h2>Dados de contato</h2></div>
+                        <div class="col-12 text-center mb-3"><h2>Local de Atendimento</h2></div>
 
                         <div class="col-10 inputs mb-2">
-                            <input type="text" name="email" placeholder="Email" />
+                            <select name="estado" data-local={{$user->local->estado ?? ''}}>
+                                <option value="">- Selecione o Estado -</option>
+                            </select>
                         </div>
                         <div class="col-10 inputs mb-2">
-                            <input type="password" name="pass" placeholder="Password" />
+                            <select name="cidade" data-local={{$user->local->cidade ?? ''}}>
+                                <option value="">- Selecione a Cidade -</option>
+                            </select>
                         </div>
                         <div class="col-10 inputs mb-2">
-                            <input type="password" name="cpass" placeholder="Confirm Password" />
+                            <select name="bairro" class="bairro_select" data-local={{isset($user->local->bairro) ? str_replace(' ', '__', $user->local->bairro) : ''}}>
+                                <option value="">- Selecione o Bairro -</option>
+                            </select>
+                            <input type="text" class="bairro_input d-none" placeholder="Nome do bairro" value="{{$user->local->bairro ?? ''}}">
                         </div>
 
                         <div class="col-10">
-                            <div class="row justify-content-end">
+                            <div class="row justify-content-between">
                                 <div class="col-5 d-grid mt-2">
-                                    <button type="button" name="next" class="btn btn-c-purple next">Proximo</button>
+                                    <button type="button" class="btn btn-c-purple previous">Voltar</button>
+                                </div>
+                                <div class="col-5 d-grid mt-2">
+                                    <button type="button" class="next d-none"></button>
+                                    <button type="button" data-target="#form_local" data-route="{{route('perfil.dados.atualizar')}}" class="btn btn-c-purple btn-save">Proximo</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </section>
+            <section class="field">
+                <form id="form_servicos">
+                    <input type="hidden" name="step" value="servicos">
+                    <div class="row justify-content-center formulario">
+                        <div class="col-12 text-center mb-3"><h2>Local de Atendimento</h2></div>
+
+                        <div class="col-10 inputs mb-2">
+                            <select name="estado2">
+                                <option value="">- Selecione o Estado -</option>
+                            </select>
+                        </div>
+                        <div class="col-10 inputs mb-2">
+                            <select name="cidade2">
+                                <option value="">- Selecione a Cidade -</option>
+                            </select>
+                        </div>
+                        <div class="col-10 inputs mb-2">
+                            <select name="bairro2" class="bairro_select">
+                                <option value="">- Selecione o Bairro -</option>
+                            </select>
+                            <input type="text" class="bairro_input d-none" placeholder="Nome do bairro">
+                        </div>
+
+                        <div class="col-10">
+                            <div class="row justify-content-between">
+                                <div class="col-5 d-grid mt-2">
+                                    <button type="button" class="btn btn-c-purple previous">Voltar</button>
+                                </div>
+                                <div class="col-5 d-grid mt-2">
+                                    <button type="button" class="next d-none"></button>
+                                    <button type="button" data-target="#form_servicos" data-route="{{route('perfil.dados.atualizar')}}" class="btn btn-c-purple btn-save">Proximo</button>
                                 </div>
                             </div>
                         </div>

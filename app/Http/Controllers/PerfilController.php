@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Dado;
 use App\Models\Contato;
 use App\Models\Sobre;
+use App\Models\Local;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -110,6 +111,21 @@ class PerfilController extends Controller
                     $sobre->update($sobres);
                 }else{
                     Sobre::create($sobres);
+                }
+
+                return response()->json(['success', 'step', 'next'], 200);
+            break;
+            case 'local':
+                $local = Local::where('user_id', auth()->user()->id);
+                $locals['user_id']   = auth()->user()->id;
+                $locals['estado']    = $request->estado;
+                $locals['cidade']    = $request->cidade;
+                $locals['bairro']    = $request->bairro;
+
+                if($local->first()){
+                    $local->update($locals);
+                }else{
+                    Local::create($locals);
                 }
 
                 return response()->json(['success', 'step', 'next'], 200);

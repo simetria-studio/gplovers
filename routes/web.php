@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PerfilController;
 
 use App\Http\Controllers\Auth\LoginController;
@@ -17,6 +18,10 @@ use App\Http\Controllers\Auth\RegisterController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/buscaEstado', [HomeController::class, 'buscaEstado']);
+Route::get('/buscaCidade/{id}', [HomeController::class, 'buscaCidade']);
+Route::get('/buscaBairro/{id}', [HomeController::class, 'buscaBairro']);
 
 // Route::get('/idade', function () {
 //     return view('idade');

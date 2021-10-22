@@ -5,14 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Local extends Model
+class Estado extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'user_id',
-        'bairro',
-        'cidade',
-        'estado',
-    ];
-}
 
+    protected $table = 'm2_localidade_estado';
+}

@@ -65,12 +65,13 @@ $(".previous").click(function(){
 			//3. increase opacity of previous_fs to 1 as it moves in
 			opacity = 1 - now;
 			current_fs.css({'left': left});
-			previous_fs.css({'transform': 'scale('+scale+')', 'position': 'relative', 'opacity': opacity});
+			previous_fs.css({'transform': 'scale('+scale+')', 'opacity': opacity});
 		}, 
 		duration: 800, 
 		complete: function(){
 			current_fs.hide();
 			animating = false;
+			previous_fs.css({'position': 'relative'});
 		}, 
 		//this comes from the custom easing plugin
 		easing: 'easeInOutBack'

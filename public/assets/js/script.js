@@ -9,6 +9,86 @@ $(document).ready(function() {
     $('[name="tamanho"]').mask('0,00', {reverse: true});
     $('[name="peso"]').mask('000,00', {reverse: true});
 
+    $(function(){
+        if($('[name="estado"]')){
+            $.ajax({
+                url: '/buscaEstado',
+                type: 'GET',
+                success: (data) => {
+                    // console.log(data);
+                    for(var i=0; data.length>i; i++){
+                        $('[name="estado"]').append('<option value="'+data[i].sigla+'" data-estado_id="'+data[i].id+'">'+data[i].sigla+' - '+data[i].titulo+'</option>');
+                    }
+                }
+            });
+        }
+    });
+
+    // Busca das cidades/municipios
+    $(document).on('change', '[name="estado"]', function(){
+        let estado_id = $(this).find(':selected').data('estado_id');
+        let select = $(this).parent().parent().find('select[name="cidade"]');
+
+        $.ajax({
+            url: '/buscaCidade/'+estado_id,
+            type: 'GET',
+            success: (data) => {
+                // console.log(data);
+                select.empty();
+                select.append('<option value="">- Selecione a Cidade -</option>');
+
+                for(var i=0; data.length>i; i++){
+                    select.append('<option value="'+data[i].titulo+'" data-cidade_id="'+data[i].id+'">'+data[i].titulo+'</option>');
+                }
+            }
+        });
+    });
+
+    // Busca das cidades/municipios
+    $(document).on('change', '[name="cidade"]', function(){
+        let cidade_id = $(this).find(':selected').data('cidade_id');
+
+        $.ajax({
+            url: '/buscaBairro/'+cidade_id,
+            type: 'GET',
+            success: (data) => {
+                // console.log(data);
+                if(data.length == 0){
+                    $('.bairro_select').addClass('d-none').removeAttr('name');
+                    $('.bairro_input').removeClass('d-none').attr('name', 'bairro');
+                }else{
+                    $('.bairro_select').removeClass('d-none').attr('name', 'bairro');
+                    $('.bairro_input').addClass('d-none').removeAttr('name');
+                }
+
+                $('.bairro_select').empty();
+                $('.bairro_select').append('<option value="">- Selecione o Bairro -</option>');
+
+                for(var i=0; data.length>i; i++){
+                    $('.bairro_select').append('<option value="'+data[i].titulo+'">'+data[i].titulo+'</option>');
+                }
+            }
+        });
+    });
+
+    $(function(){
+        if($('[name="estado"]').data('local') !== ''){
+            setTimeout(() => {
+                $('[name="estado"]').val($('[name="estado"]').data('local'));
+                $('[name="estado"]').trigger('change');
+
+                setTimeout(() => {
+                    $('[name="cidade"]').val($('[name="cidade"]').data('local'));
+                    $('[name="cidade"]').trigger('change');
+
+                    setTimeout(() => {
+                        $('[name="bairro"]').val(($('[name="bairro"]').data('local')).replace('__', ' '));
+                    }, 1000);
+                }, 900);
+            }, 700);
+        }
+    });
+
     $('#form-login').find('input').on('keyup', function (e) {
         if (e.keyCode == 13) {
             $('#btn-login').trigger('click');

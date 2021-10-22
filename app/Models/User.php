@@ -60,4 +60,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Sobre::class, 'user_id');
     }
+
+    public function local()
+    {
+        return $this->hasOne(Local::class, 'user_id');
+    }
 }
