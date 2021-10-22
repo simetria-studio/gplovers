@@ -65,4 +65,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Local::class, 'user_id');
     }
+
+    public function lugar()
+    {
+        return $this->hasOne(Lugar::class, 'user_id');
+    }
 }

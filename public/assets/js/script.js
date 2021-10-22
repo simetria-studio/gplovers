@@ -6,6 +6,8 @@ $(document).ready(function() {
         }
     });
 
+    $('.select2').select2();
+
     $('[name="tamanho"]').mask('0,00', {reverse: true});
     $('[name="peso"]').mask('000,00', {reverse: true});
 
@@ -83,9 +85,9 @@ $(document).ready(function() {
 
                     setTimeout(() => {
                         $('[name="bairro"]').val(($('[name="bairro"]').data('local')).replace('__', ' '));
-                    }, 1000);
-                }, 900);
-            }, 700);
+                    }, 2200);
+                }, 1600);
+            }, 1000);
         }
     });
 

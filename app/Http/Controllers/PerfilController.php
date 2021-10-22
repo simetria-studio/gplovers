@@ -7,6 +7,7 @@ use App\Models\Dado;
 use App\Models\Contato;
 use App\Models\Sobre;
 use App\Models\Local;
+use App\Models\TipoLugar;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -60,6 +61,7 @@ class PerfilController extends Controller
     public function editarDados()
     {
         $user = auth()->user();
+        $tipo_lugares = TipoLugar::all();
         return view('perfil.editarDados', get_defined_vars());
     }
 

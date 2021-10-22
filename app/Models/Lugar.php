@@ -10,8 +10,12 @@ class Lugar extends Model
     use HasFactory;
 
     protected $fillable = [
-        'bairro',
+        'user_id',
         'lugar_id',
-       
     ];
+
+    public function lugar()
+    {
+        return $this->hasOne(TipoLugar::class, 'lugar_id');
+    }
 }

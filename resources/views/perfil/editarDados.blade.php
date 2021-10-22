@@ -174,23 +174,15 @@
                 <form id="form_servicos">
                     <input type="hidden" name="step" value="servicos">
                     <div class="row justify-content-center formulario">
-                        <div class="col-12 text-center mb-3"><h2>Local de Atendimento</h2></div>
+                        <div class="col-12 text-center mb-3"><h2>Serviços</h2></div>
 
                         <div class="col-10 inputs mb-2">
-                            <select name="estado2">
-                                <option value="">- Selecione o Estado -</option>
+                            <select name="lugar_id" class="select2">
+                                <option value="">- Selecione os Lugares -</option>
+                                @foreach ($tipo_lugares as $tipo_lugar)
+                                    <option value="{{$tipo_lugar->id}}">{{$tipo_lugar->lugar}}</option>
+                                @endforeach
                             </select>
-                        </div>
-                        <div class="col-10 inputs mb-2">
-                            <select name="cidade2">
-                                <option value="">- Selecione a Cidade -</option>
-                            </select>
-                        </div>
-                        <div class="col-10 inputs mb-2">
-                            <select name="bairro2" class="bairro_select">
-                                <option value="">- Selecione o Bairro -</option>
-                            </select>
-                            <input type="text" class="bairro_input d-none" placeholder="Nome do bairro">
                         </div>
 
                         <div class="col-10">
