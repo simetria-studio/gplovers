@@ -85,4 +85,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Cache::class, 'user_id');
     }
+
+    public function fotos()
+    {
+        return $this->hasMany(Foto::class, 'user_id');
+    }
 }

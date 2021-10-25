@@ -281,13 +281,33 @@
                         <div class="col-12 text-center mb-3"><h2>Fotos</h2></div>
 
                         <div class="col-10 mb-2">
-                            
+                            <div class="row">
+                                @isset($user->fotos)
+                                    @foreach ($user->fotos as $foto)
+                                        <div class="col-6 col-md-3 mb-2">
+                                            <div class="checkbox justify-content-start mb-3">
+                                                <input class="me-2" type="checkbox" name="excluir_foto[]" value="{{$foto->id}}" />
+                                                <label for="">Excluir Foto?</label>
+                                            </div>
+                                            <div class="foto">
+                                                <img class="rounded img-fluid" src="{{asset('storage/user_'.auth()->user()->id.'/'.$foto->path)}}">
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                @endisset
+
+                                <div class="col-6 col-md-3 mb-2">
+                                    <button type="button" class="btn btn-c-purple btn-add-foto">+</button>
+                                    <input type="file" name="foto[]" class="d-none add-foto">
+                                    <div class="foto"></div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="col-12 text-center my-3"><h2>Publicar?</h2></div>
 
                         <div class="col-10 checkbox justify-content-start mb-3">
-                            <input class="me-2" type="checkbox" name="publish" value="true" />
+                            <input class="me-2" type="checkbox" name="publish" value="true" @if($user->publish == 1) checked @endif />
                             <label for="">Publicar Perfil?</label>
                         </div>
 
@@ -305,41 +325,6 @@
                     </div>
                 </form>
             </section>
-
-            {{-- <section>
-                <form action="">
-                    <h2 class="fs-title">Personal Details</h2>
-                    <input type="text" name="fname" placeholder="First Name" />
-                    <input type="text" name="lname" placeholder="Last Name" />
-                    <input type="text" name="phone" placeholder="Phone" />
-                    <textarea name="address" placeholder="Address"></textarea>
-                    <input type="button" name="previous" class="previous action-button" value="Previous" />
-                    <input type="submit" name="submit" class="submit action-button" value="Submit" />
-                </form>
-            </section> --}}
         </section>
-        {{-- <form id="form_atualizarConta" method="POST">
-            @csrf
-            <div class="row mt-3 justify-content-center formulario">
-                <div class="col-10 inputs mb-2">
-                    <input type="text" name="name" value="{{auth()->user()->name}}">
-                </div>
-                <div class="col-10 inputs mb-4">
-                    <input type="email" name="email" value="{{auth()->user()->email}}">
-                </div>
-
-                <div class="col-10 inputs mb-2">
-                    <span class="info">Para não alterar a senha deixar campo vazio</span>
-                    <input type="password" name="password" placeholder="Nova Senha">
-                </div>
-                <div class="col-10 inputs mb-2">
-                    <input type="password" name="password_confirmation" placeholder="Confirmar Nova Senha">
-                </div>
-
-                <div class="col-10 mt-5 d-grid">
-                    <button type="button" class="btn btn-c-purple btn-save" data-target="#form_atualizarConta" data-route="{{route('perfil.conta.editar')}}">Atualizar</button>
-                </div>
-            </div>
-        </form> --}}
     </div>
 @endsection

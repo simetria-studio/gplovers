@@ -13,10 +13,16 @@ use App\Models\Lugar;
 use App\Models\Servico;
 use App\Models\Horario;
 use App\Models\Cache;
+use App\Models\Foto;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+
+use Illuminate\Support\Str;
+use Intervention\Image\ImageManagerStatic as Image;
+
+use Illuminate\Support\Facades\Storage;
 
 class PerfilController extends Controller
 {
@@ -60,6 +66,7 @@ class PerfilController extends Controller
     // Dados do perfil
     public function dados()
     {
+        $user = auth()->user();
         return view('perfil.dados', get_defined_vars());
     }
 
@@ -215,6 +222,44 @@ class PerfilController extends Controller
                 }
 
                 return response()->json(['success', 'step', 'next'], 200);
+            break;
+            case 'fotos':
+                $originalPath = storage_path('app/public/user_'.auth()->user()->id.'/');
+                if (!file_exists($originalPath)) {
+                    mkdir($originalPath, 666, true);
+                }
+
+                if(isset($request->foto)){
+                    foreach ($request->foto as $foto){
+                        $img = Image::make($foto);
+
+                        $name = Str::random() . '.jpg';
+
+                        $img->save($originalPath . $name);
+
+                        Foto::create([
+                            'user_id' => auth()->user()->id,
+                            'path' => $name
+                        ]);
+                    }
+                }
+
+                if(isset($request->excluir_foto)) {
+                    foreach($request->excluir_foto as $excluir_foto){
+                        $foto = Foto::find($excluir_foto);
+                        Storage::delete('public/user_'.auth()->user()->id.'/'.$foto->path);
+
+                        $foto->delete();
+                    }
+                }
+
+                if(isset($request->publish)) {
+                    User::find(auth()->user()->id)->update(['publish' => 1]);
+                }else{
+                    User::find(auth()->user()->id)->update(['publish' => 0]);
+                }
+
+                return response()->json(['success', 'step', 'finish', route('perfil.dados')], 200);
             break;
         }
     }

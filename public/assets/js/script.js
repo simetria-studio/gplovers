@@ -76,7 +76,7 @@ $(document).ready(function() {
     });
 
     $(function(){
-        if($('[name="estado"]').data('local') !== ''){
+        if($('[name="estado"]').data('local')){
             setTimeout(() => {
                 $('[name="estado"]').val($('[name="estado"]').data('local'));
                 $('[name="estado"]').trigger('change');
@@ -261,6 +261,56 @@ $(document).ready(function() {
         }else{
             $('.horario').parent().removeClass('d-none');
         }
+    });
+
+    // Adicionando imagens
+    // Adicionando imagem
+    $(document).on('click', '.btn-add-foto', function(e){
+        e.preventDefault();
+        $(this).parent().find('.add-foto').trigger('click');
+    });
+    $(document).on('change', '.add-foto', function(){
+        $(this).removeClass('add-foto');
+
+        $(this).parent().find('.btn-add-foto').removeClass('btn-c-purple btn-add-foto').addClass('btn-c-purple btn-remove-foto').html('x');
+
+        $(this).parent().parent().append(
+            '<div class="col-6 col-md-3 mb-2">'+
+                '<button type="button" class="btn btn-c-purple btn-add-foto">+</button>'+
+                '<input type="file" class="d-none add-foto" name="foto[]">'+
+                '<div class="foto"></div>'+
+            '</div>'
+        );
+
+        var form_img = $(this).parent();
+
+        var preview = form_img.find('.foto');
+        var files   = $(this).prop('files');
+
+        function readAndPreview(file) {
+            // Make sure `file.name` matches our extensions criteria
+            if ( /\.(jpe?g|png|gif)$/i.test(file.name) ) {
+                var reader = new FileReader();
+
+                reader.addEventListener("load", function () {
+                var image = new Image();
+                image.classList = 'rounded img-fluid';
+                // image.height = 180;
+                image.title = file.name;
+                image.src = this.result;
+                preview.append( image );
+                }, false);
+
+                reader.readAsDataURL(file);
+            }
+        }
+
+        if (files) {
+            [].forEach.call(files, readAndPreview);
+        }
+    });
+    $(document).on('click', '.btn-remove-foto', function(){
+        $(this).parent().remove();
     });
 
     // Novo chache
