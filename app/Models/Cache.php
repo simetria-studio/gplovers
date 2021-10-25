@@ -11,7 +11,7 @@ class Cache extends Model
 
     protected $fillable = [
         'user_id',
-        'desc',
+        'nome',
         'valor'
     ];
 }

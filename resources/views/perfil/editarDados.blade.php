@@ -93,7 +93,7 @@
                             <input type="text" name="peso" placeholder="Peso Kg" value="{{$user->sobre->peso ?? ''}}" />
                         </div>
                         <div class="col-10 checkbox justify-content-start mb-3">
-                            <input class="me-2" type="checkbox" name="tatuagem" value="true" @isset($user->sobre->tatuagem) @if($user->sobre->tatuagem == 'SIM') selected @endif @endisset />
+                            <input class="me-2" type="checkbox" name="tatuagem" value="true" @isset($user->sobre->tatuagem) @if($user->sobre->tatuagem == 'SIM') checked @endif @endisset />
                             <label for="">Tatuagem?</label>
                         </div>
                         <div class="col-10 inputs mb-2">
@@ -177,12 +177,87 @@
                         <div class="col-12 text-center mb-3"><h2>Serviços</h2></div>
 
                         <div class="col-10 inputs mb-2">
-                            <select name="lugar_id" class="select2">
-                                <option value="">- Selecione os Lugares -</option>
+                            <span class="info">Lugares onde se pode fazer o serviço</span>
+                            <select name="lugar_id[]" multiple class="select2" data-placeholder="Selecione os Lugares">
                                 @foreach ($tipo_lugares as $tipo_lugar)
-                                    <option value="{{$tipo_lugar->id}}">{{$tipo_lugar->lugar}}</option>
+                                    <option value="{{$tipo_lugar->id}}" @if(in_array($tipo_lugar->id, $lugares)) selected @endif>{{$tipo_lugar->lugar}}</option>
                                 @endforeach
                             </select>
+                        </div>
+                        <div class="col-10 inputs mb-2">
+                            <span class="info">Tipo de serviços que faz</span>
+                            <select name="servico_id[]" multiple class="select2" data-placeholder="Selecione os Serviços">
+                                @foreach ($tipo_servicos as $tipo_servico)
+                                    <option value="{{$tipo_servico->id}}" @if(in_array($tipo_servico->id, $servicos)) selected @endif>{{$tipo_servico->servico}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="col-12 text-center my-3"><h2>Horarios</h2></div>
+
+                        <div class="col-10 inputs mb-3">
+                            <span class="info">Dias de atendimento</span>
+                            <select name="dias[]" multiple class="select2" data-placeholder="Selecione os dias">
+                                @foreach ($dias as $dia)
+                                    <option value="{{$dia}}" @isset($user->horario) @if(in_array($dia, $user->horario->dias)) selected @endif @endisset>{{$dia}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="col-10 checkbox justify-content-start mb-3">
+                            <input class="me-2" type="checkbox" name="24horas" value="true" @isset($user->horario) @if($user->horario['24horas'] == 1) checked @endif @endisset />
+                            <label for="">Trabalha 24hrs?</label>
+                        </div>
+                        <div class="col-10 inputs mb-2">
+                            <span class="info">Horario de atendimento (Inicio e Fim)</span>
+                            <div class="horario">
+                                <input type="text" name="inicio" class="horas" value="{{isset($user->horario->inicio) ? date('H:i', strtotime($user->horario->inicio)) : ''}}" placeholder="00:00">
+                                <input type="text" name="fim" class="horas" value="{{isset($user->horario->fim) ? date('H:i', strtotime($user->horario->fim)) : ''}}" placeholder="00:00">
+                            </div>
+                        </div>
+
+                        <div class="col-12 text-center my-3"><h2>Valores dos Serviços</h2></div>
+
+                        <div class="col-10 caches inputs mb-2">
+                            <input type="hidden" class="cache_inputs" value="{{((4+$tipo_servicos->count()) - (isset($user->caches) ? $user->caches->count() : 0))}}">
+                            @isset($user->caches)
+                                @foreach ($user->caches as $key => $cache)
+                                    <div class="cache border rounded my-1 py-2 px-1">
+                                        <input type="hidden" name="cache[{{((3+$tipo_servicos->count())+$key)}}][cache_id]" value="{{$cache->id}}">
+                                        <select name="cache[{{((3+$tipo_servicos->count())+$key)}}][nome]" class="select2" data-placeholder="Selecione o Serviço">
+                                            <option value="15m" @if($cache->nome == '15m') selected @endif>15 Minutos</option>
+                                            <option value="30m" @if($cache->nome == '30m') selected @endif>30 Minutos</option>
+                                            <option value="1h" @if($cache->nome == '1h') selected @endif>1 Hora</option>
+                                            <optgroup label="Serviços adcionais">
+                                                @foreach ($tipo_servicos as $tipo_servico)
+                                                    <option value="{{$tipo_servico->id}}" @if($cache->nome == $tipo_servico->id) selected @endif>{{$tipo_servico->servico}}</option>
+                                                @endforeach
+                                            </optgroup>
+                                        </select>
+                                        <input type="text" name="cache[{{((3+$tipo_servicos->count())+$key)}}][valor]" value="{{number_format($cache->valor, 2, '.', ',')}}" class="real mt-2" placeholder="Valor do Serviço">
+                                    </div>
+                                @endforeach
+                            @endisset
+
+                            @for ($i = 0; $i < ((4+$tipo_servicos->count()) - (isset($user->caches) ? $user->caches->count() : 0)); $i++)
+                                <div class="cache border rounded my-1 py-2 px-1 @if($i >= 1) d-none @endif">
+                                    <select name="cache[{{$i}}][nome]" class="select2" data-placeholder="Selecione o Serviço">
+                                        <option value="15m">15 Minutos</option>
+                                        <option value="30m">30 Minutos</option>
+                                        <option value="1h">1 Hora</option>
+                                        <optgroup label="Serviços adcionais">
+                                            @foreach ($tipo_servicos as $tipo_servico)
+                                                <option value="{{$tipo_servico->id}}">{{$tipo_servico->servico}}</option>
+                                            @endforeach
+                                        </optgroup>
+                                    </select>
+                                    <input type="text" name="cache[{{$i}}][valor]" class="real mt-2" placeholder="Valor do Serviço">
+                                </div>
+                            @endfor
+                        </div>
+
+                        <div class="col-10 mb-2 text-center">
+                            <button type="button" class="btn btn-c-purple btn-new-chache">ADICIONAR CHACHE</button>
                         </div>
 
                         <div class="col-10">
@@ -193,6 +268,37 @@
                                 <div class="col-5 d-grid mt-2">
                                     <button type="button" class="next d-none"></button>
                                     <button type="button" data-target="#form_servicos" data-route="{{route('perfil.dados.atualizar')}}" class="btn btn-c-purple btn-save">Proximo</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </section>
+            <section class="field">
+                <form id="form_fotos">
+                    <input type="hidden" name="step" value="fotos">
+                    <div class="row justify-content-center formulario">
+                        <div class="col-12 text-center mb-3"><h2>Fotos</h2></div>
+
+                        <div class="col-10 mb-2">
+                            
+                        </div>
+
+                        <div class="col-12 text-center my-3"><h2>Publicar?</h2></div>
+
+                        <div class="col-10 checkbox justify-content-start mb-3">
+                            <input class="me-2" type="checkbox" name="publish" value="true" />
+                            <label for="">Publicar Perfil?</label>
+                        </div>
+
+                        <div class="col-10">
+                            <div class="row justify-content-between">
+                                <div class="col-5 d-grid mt-2">
+                                    <button type="button" class="btn btn-c-purple previous">Voltar</button>
+                                </div>
+                                <div class="col-5 d-grid mt-2">
+                                    <button type="button" class="next d-none"></button>
+                                    <button type="button" data-target="#form_fotos" data-route="{{route('perfil.dados.atualizar')}}" class="btn btn-c-purple btn-save">Finalizar</button>
                                 </div>
                             </div>
                         </div>

@@ -8,8 +8,10 @@ $(document).ready(function() {
 
     $('.select2').select2();
 
+    $('.real').mask('000.000,00', {reverse: true});
     $('[name="tamanho"]').mask('0,00', {reverse: true});
     $('[name="peso"]').mask('000,00', {reverse: true});
+    $('.horas').mask('00:00', {reverse: true});
 
     $(function(){
         if($('[name="estado"]')){
@@ -244,6 +246,36 @@ $(document).ready(function() {
                 }
             }
         });
+    });
+
+    $(document).on('click', '[name="24horas"]', function(){
+        if($(this).prop('checked')){
+            $('.horario').parent().addClass('d-none');
+        }else{
+            $('.horario').parent().removeClass('d-none');
+        }
+    });
+    $(function(){
+        if($('[name="24horas"]').prop('checked')){
+            $('.horario').parent().addClass('d-none');
+        }else{
+            $('.horario').parent().removeClass('d-none');
+        }
+    });
+
+    // Novo chache
+    $(document).on('click', '.btn-new-chache', function(){
+        var caches = $('.caches');
+        var cache_inputs = parseInt($('.caches').find('.cache_inputs').val()) || 0;
+
+        var cache = 0;
+        caches.find('.cache').each(function(){
+            if($(this).hasClass('d-none') == false) cache += 1;
+        });
+
+        if($(caches.find('.cache')[cache]).hasClass('d-none')) $(caches.find('.cache')[cache]).removeClass('d-none');
+
+        if(cache == cache_inputs) $(this).addClass('d-none');
     });
 
     // Cookies-Idade

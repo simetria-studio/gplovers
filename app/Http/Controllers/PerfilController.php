@@ -8,6 +8,11 @@ use App\Models\Contato;
 use App\Models\Sobre;
 use App\Models\Local;
 use App\Models\TipoLugar;
+use App\Models\TipoServico;
+use App\Models\Lugar;
+use App\Models\Servico;
+use App\Models\Horario;
+use App\Models\Cache;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -60,8 +65,32 @@ class PerfilController extends Controller
 
     public function editarDados()
     {
+        $dias = [
+            'Domingo',
+            'Segunda',
+            'Terça',
+            'Quarta',
+            'Quinta',
+            'Sexta',
+            'Sábado',
+        ];
+
         $user = auth()->user();
         $tipo_lugares = TipoLugar::all();
+        $tipo_servicos = TipoServico::all();
+        $lugares = [];
+        if(isset($user->lugares)){
+            foreach($user->lugares as $lugar){
+                $lugares[] = $lugar->lugar_id;
+            }
+        }
+        $servicos = [];
+        if(isset($user->servicos)){
+            foreach($user->servicos as $servico){
+                $servicos[] = $servico->servico_id;
+            }
+        }
+
         return view('perfil.editarDados', get_defined_vars());
     }
 
@@ -128,6 +157,61 @@ class PerfilController extends Controller
                     $local->update($locals);
                 }else{
                     Local::create($locals);
+                }
+
+                return response()->json(['success', 'step', 'next'], 200);
+            break;
+            case 'servicos':
+                $lugar = Lugar::where('user_id', auth()->user()->id)->delete();
+                $servico = Servico::where('user_id', auth()->user()->id)->delete();
+
+                foreach($request->lugar_id as $lid) {
+                    $lugares['user_id']     = auth()->user()->id;
+                    $lugares['lugar_id']    = $lid;
+
+                    Lugar::create($lugares);
+                }
+
+                foreach($request->servico_id as $sid) {
+                    $servicos['user_id']     = auth()->user()->id;
+                    $servicos['servico_id']    = $sid;
+
+                    Servico::create($servicos);
+                }
+
+                $horario = Horario::where('user_id', auth()->user()->id);
+
+                $horarios['user_id']    = auth()->user()->id;
+                $horarios['dias']       = $request->dias;
+                $horarios['inicio']     = isset($request['24horas']) ? '00:00' : date('H:i:s', strtotime($request->inicio));
+                $horarios['fim']        = isset($request['24horas']) ? '00:00' : date('H:i:s', strtotime($request->fim));
+                $horarios['24horas']    = isset($request['24horas']) ? 1 : 0;
+
+                if($horario->get()->count() > 0){
+                    $horario->update($horarios);
+                }else{
+                    Horario::create($horarios);
+                }
+
+                foreach($request->cache as $cache){
+                    $caches = [];
+                    if($cache['valor']) {
+                        $caches['user_id'] = auth()->user()->id;
+                        $caches['nome'] = $cache['nome'];
+                        $caches['valor'] = str_replace(['.',','], ['','.'], $cache['valor']);
+                    }
+
+                    if(isset($cache['cache_id'])){
+                        if($cache['valor'] == null){
+                            Cache::find($cache['cache_id'])->delete();
+                        }else {
+                            Cache::find($cache['cache_id'])->update($caches);
+                        }
+                    }else{
+                        if($cache['valor']){
+                            Cache::create($caches);
+                        }
+                    }
                 }
 
                 return response()->json(['success', 'step', 'next'], 200);

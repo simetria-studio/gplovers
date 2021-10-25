@@ -66,8 +66,23 @@ class User extends Authenticatable
         return $this->hasOne(Local::class, 'user_id');
     }
 
-    public function lugar()
+    public function lugares()
     {
-        return $this->hasOne(Lugar::class, 'user_id');
+        return $this->hasMany(Lugar::class, 'user_id');
+    }
+
+    public function servicos()
+    {
+        return $this->hasMany(Servico::class, 'user_id');
+    }
+
+    public function horario()
+    {
+        return $this->hasOne(Horario::class, 'user_id');
+    }
+
+    public function caches()
+    {
+        return $this->hasMany(Cache::class, 'user_id');
     }
 }
