@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="logo d-flex justify-content-center col-12">
                     <div class="logotipo">
-                        <a href="/home">
+                        <a href="{{route('home')}}">
                             <img src="{{ url('/assets/img/logo.png') }}" alt="logotipo" />
                         </a>
                     </div>

@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="logo d-flex justify-content-center col-12">
                     <div class="logotipo">
-                        <a href="/home">
+                        <a href="{{route('home')}}">
                             <img src="{{ url('/assets/img/logo.png') }}" alt="logotipo" />
                         </a>
                     </div>
@@ -78,7 +78,7 @@
                         <div class="col-12 text-center mb-3"><h2>Sobre Você</h2></div>
 
                         <div class="col-10 inputs mb-2">
-                            <input type="text" name="tamanho" placeholder="Seu Tamanho" value="{{$user->sobre->tamanho ?? ''}}" />
+                            <input type="text" name="tamanho" placeholder="Sua Altura" value="{{$user->sobre->tamanho ?? ''}}" />
                         </div>
                         <div class="col-10 inputs mb-2">
                             <select name="etnia">
@@ -105,10 +105,20 @@
                             </select>
                         </div>
                         <div class="col-10 inputs mb-2">
-                            <input type="text" name="olhos" placeholder="Seus Olhos" value="{{$user->sobre->olhos ?? ''}}" />
+                            <select name="olhos">
+                                <option value="">- Selecione a Cor dos Olhos -</option>
+                                @foreach ($olhos as $olho)
+                                    <option value="{{$olho}}" @isset($user->sobre->olhos) @if($olho == $user->sobre->olhos) selected @endif @endisset>{{$olho}}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="col-10 inputs mb-2">
-                            <input type="text" name="cabelo" placeholder="Seu Cabelo" value="{{$user->sobre->cabelo ?? ''}}" />
+                            <select name="cabelo">
+                                <option value="">- Selecione a Cor do Cabelo -</option>
+                                @foreach ($cabelos as $cabelo)
+                                    <option value="{{$cabelo}}" @isset($user->sobre->cabelo) @if($cabelo == $user->sobre->cabelo) selected @endif @endisset>{{$cabelo}}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="col-10 inputs mb-2">
                             <select name="pes">
@@ -257,7 +267,7 @@
                         </div>
 
                         <div class="col-10 mb-2 text-center">
-                            <button type="button" class="btn btn-c-purple btn-new-chache">ADICIONAR CHACHE</button>
+                            <button type="button" class="btn btn-c-purple btn-new-chache">ADICIONAR CACHE</button>
                         </div>
 
                         <div class="col-10">

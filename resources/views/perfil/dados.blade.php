@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="logo d-flex justify-content-center col-12">
                     <div class="logotipo">
-                        <a href="/home">
+                        <a href="{{route('home')}}">
                             <img src="{{ url('/assets/img/logo.png') }}" alt="logotipo" />
                         </a>
                     </div>
@@ -15,7 +15,7 @@
     </div>
     <div class="container">
         <div class="row mt-3 justify-content-center">
-            <div class="col-10 mb-3 d-grid"><a href="{{route('perfil.dados.editar')}}" class="btn btn-c-purple">Atualizar Dados</a></div>
+            <div class="col-10 mb-3 d-grid"><a href="{{route('perfil.dados.editar')}}" class="btn btn-c-purple">Atualizar Anuncio</a></div>
 
             <div class="col-10 mb-3 text-center"><h3>PUBLICADO - {{$user->publish == 1 ? 'SIM' : 'NÃO'}}</h3></div>
 

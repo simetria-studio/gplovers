@@ -6,6 +6,14 @@ $(document).ready(function() {
         }
     });
 
+    $(document).on('click', '.btn-lightbox-image', function(e){
+        e.preventDefault();
+
+        console.log($(this).attr('href'));
+        $.slimbox($(this).attr('href'));
+
+    });
+
     $('.select2').select2();
 
     $('.real').mask('000.000,00', {reverse: true});

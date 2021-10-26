@@ -26,6 +26,30 @@ use Illuminate\Support\Facades\Storage;
 
 class PerfilController extends Controller
 {
+    public $dias = [
+        'Domingo',
+        'Segunda',
+        'Terça',
+        'Quarta',
+        'Quinta',
+        'Sexta',
+        'Sábado',
+    ];
+
+    public $olhos = [
+        'Azul',
+        'Castanho',
+        'Verde',
+        'Outros',
+    ];
+
+    public $cabelos = [
+        'Ruivo',
+        'Castanho',
+        'Branco',
+        'Outros',
+    ];
+
     public function conta()
     {
         return view('perfil.conta', get_defined_vars());
@@ -72,15 +96,9 @@ class PerfilController extends Controller
 
     public function editarDados()
     {
-        $dias = [
-            'Domingo',
-            'Segunda',
-            'Terça',
-            'Quarta',
-            'Quinta',
-            'Sexta',
-            'Sábado',
-        ];
+        $dias = $this->dias;
+        $olhos = $this->olhos;
+        $cabelos = $this->cabelos;
 
         $user = auth()->user();
         $tipo_lugares = TipoLugar::all();

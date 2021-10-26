@@ -32,4 +32,20 @@ class HomeController extends Controller
         $perfis = User::where('publish', 1)->get();
         return view('home', get_defined_vars());
     }
+
+    public function anuncio($slug)
+    {
+        $slug = explode('-', $slug);
+        $id = $slug[count($slug)-1];
+        $perfil = User::find($id);
+
+        $servicos_adicional = [];
+        foreach ($perfil->caches as $caches_add){
+            if(!in_array($caches_add->nome, ['15m', '30m', '1h'])){
+                $servicos_adicional[$caches_add->nome] = $caches_add->valor;
+            }
+        }
+
+        return view('perfil', get_defined_vars());
+    }
 }

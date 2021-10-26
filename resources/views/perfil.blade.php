@@ -1,51 +1,50 @@
 @extends('layouts.main')
 @section('content')
 <div class="voltar">
-    <a href="/">VOLTAR</a>
+    <a href="{{url()->previous()}}">VOLTAR</a>
   </div>
   <div class="container">
     <div class="nome text-center mt-3">
-      <p>DANIELE MATTOS</p>
+      <p>{{mb_convert_case($perfil->data->nome, MB_CASE_UPPER)}}</p>
     </div>
     <div class="tags">
       <div class="tag">
         <div class="cidade">
-          <p>curitiba</p>
+          <p>{{$perfil->local->cidade}}</p>
         </div>
       </div>
       <div class="tag">
         <div class="anos">
-          <p>27 anos</p>
-        </div>
-      </div>
-      <div class="tag">
-        <div class="cache">
-          <p>R$ 150,00</p>
+          <p>{{$perfil->data->idade}} anos</p>
         </div>
       </div>
     </div>
     
     <div class="cliente-descricao mt-3">
       <p>
-        Olá meu safado, me chamo Danille Mattos, sou uma massagista carioca e
-        pela primeira vez na capital mineira. Sou estilo paniquet de seios
-        fartos, cintura fina e bumbum extra grande durinho e delicioso que
-        encaixam perfeitamente na minha altura.
+        {{$perfil->data->descricao}}
       </p>
-      <div class="btn-mais">
+      {{-- <div class="btn-mais">
         <a class="btn" href="">mais</a>
-      </div>
+      </div> --}}
     </div>
-    <div class="galeria mt-3 mb-5">
-      <div class="foto">
+    <div class="galeria mt-3 mb-5 row">
+      @foreach ($perfil->fotos as $foto)
+        <div class="foto col-6 col-md-3 py-2">
+          <a href="{{ asset('storage/user_'.$perfil->id.'/'.$foto->path) }}" class="btn-lightbox-image" rel="lightbox-cats">
+            <img class="" src="{{ asset('storage/user_'.$perfil->id.'/'.$foto->path) }}" alt="" />
+          </a>
+        </div>
+      @endforeach
+      {{-- <div class="foto">
         <img src="{{ url("/assets/img/mulher1.png") }}" alt="" />
       </div>
-      <div class="foto-1">
+      <div class="foto">
         <img src="{{ url("/assets/img/mulher4.png") }}" alt="" />
       </div>
-      <div class="foto-2">
+      <div class="foto">
         <img src="{{ url("/assets/img/mulher.png") }}" alt="" />
-      </div>
+      </div> --}}
     </div>
 
     <div class="caches mb-3">
@@ -53,14 +52,25 @@
         <p>MEU CHACHê</p>
       </div>
       <div class="meu-cache">
-        <span class="cache-bg">R$ 150,00</span>
-        <span class="cache-bg">1 hora</span>
-        <span class="cache-bg">R$ 125,00</span>
+        @foreach ($perfil->caches as $cache)
+          @php
+              $horas = [
+                '15m' => '15 Minutos',
+                '30m' => '30 Minutos',
+                '1h' => '1 Hora',
+            ];
+          @endphp
+            @if (in_array($cache->nome, ['15m', '30m', '1h']))
+              <span class="cache-bg">R$ {{number_format($cache->valor, 2, ',', '.')}}</span>
+              <span class="cache-bg">{{$horas[$cache->nome]}}</span>
+            @endif
+        @endforeach
+        {{-- <span class="cache-bg">R$ 125,00</span>
         <span class="cache-bg">30 minutos</span>
         <span class="cache-bg">R$ 200,00</span>
         <span class="cache-bg">1 hora incluso anal</span>
         <span class="cache-bg">R$ 50,00</span>
-        <span class="cache-bg">videochamada</span>
+        <span class="cache-bg">videochamada</span> --}}
       </div>
     </div>
 
@@ -69,11 +79,17 @@
         <p>meus serviços</p>
       </div>
       <div class="meu-servicos">
-        <span class="cache-bg">Beijos na boca</span>
-        <span class="cache-bg">Duplas</span>
-        <span class="cache-bg">Oral</span>
+        @foreach ($perfil->servicos as $servico)
+          <span class="cache-bg">
+            {{$servico->servico->servico}}
+            @isset ($servicos_adicional[$servico->servico_id])
+                (custo adicional R$ {{$servicos_adicional[$servico->servico_id]}})
+            @endisset
+          </span>
+        @endforeach
+        {{-- <span class="cache-bg">Oral</span>
         <span class="cache-bg">Massagem erótica</span>
-        <span class="cache-bg">Sexo anal</span>
+        <span class="cache-bg">Sexo anal</span> --}}
       </div>
     </div>
 

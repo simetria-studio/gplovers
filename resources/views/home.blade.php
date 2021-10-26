@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="logo d-flex justify-content-center col-12">
                     <div class="logotipo">
-                        <a href="/home">
+                        <a href="{{route('home')}}">
                             <img src="{{ url('/assets/img/logo.png') }}" alt="logotipo" />
                         </a>
                     </div>
@@ -35,10 +35,13 @@
         <div class="clientes mt-5">
             @forelse ($perfis as $perfil)
                 @if ($perfil->fotos->count() > 0)
+                    @php
+                        $slug = Illuminate\Support\Str::slug($perfil->data->nome).'-'.$perfil->id;
+                    @endphp
                     <div class="card mb-5">
                         <div class="imagem">
-                            <a href="{{route('perfilId', $perfil->id)}}">
-                                <img src="{{ asset('storage/user_'.$perfil->id.'/'.$perfil->fotos[0]->path) }}" />
+                            <a href="{{route('perfil.anuncio', $slug)}}">
+                                <img src="{{ asset('storage/user_'.$perfil->id.'/'.$perfil->fotos->random(1)[0]->path) }}" />
                             </a>
                         </div>
                         <div class="descricao">

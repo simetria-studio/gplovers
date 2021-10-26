@@ -13,6 +13,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{asset('plugins/jquery-ui-1.13.0/jquery-ui.min.css')}}" />
+    <link rel="stylesheet" href="{{asset('plugins/slimbox-2.05/css/slimbox2.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/css/form.multstep.min.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/css/menu.min.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/css/style.min.css')}}" />
@@ -50,7 +51,7 @@
             @endif
             @if(Request::routeIs('home') == false) <a href="{{route('home')}}"> <li><h2 class="mt">Home</h2></li></a> @endif
             @if(Request::routeIs('perfil.conta') ==  false) <a href="{{route('perfil.conta')}}"><li><h2 class="mb">Conta</h2></li></a> @endif
-            @if(Request::routeIs('perfil.dados') ==  false) <a href="{{route('perfil.dados')}}"><li><h2 class="mb">Perfil</h2></li></a> @endif
+            @if(Request::routeIs('perfil.dados') ==  false) <a href="{{route('perfil.dados')}}"><li><h2 class="mb">Anunciar</h2></li></a> @endif
         </ul>
     </div>
 
@@ -68,6 +69,7 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <script src="{{asset('plugins/jquery-ui-1.13.0/jquery-ui.min.js')}}"></script>
+    <script src="{{asset('plugins/slimbox-2.05/js/slimbox2.js')}}"></script>
     <script src="{{asset('assets/js/form.multstep.js')}}"></script>
     <script src="{{asset('assets/js/menu.js')}}"></script>
     <script src="{{asset('assets/js/script.js')}}"></script>

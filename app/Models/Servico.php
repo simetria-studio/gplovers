@@ -12,4 +12,9 @@ class Servico extends Model
         'user_id',
         'servico_id',
     ];
+
+    public function servico()
+    {
+        return $this->hasOne(TipoServico::class, 'id', 'servico_id');
+    }
 }
