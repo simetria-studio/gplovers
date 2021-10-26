@@ -105,10 +105,10 @@
                             </select>
                         </div>
                         <div class="col-10 inputs mb-2">
-                            <input type="text" name="olhos" placeholder="Seus Olhos" value="{{$user->sobre->olhos}}" />
+                            <input type="text" name="olhos" placeholder="Seus Olhos" value="{{$user->sobre->olhos ?? ''}}" />
                         </div>
                         <div class="col-10 inputs mb-2">
-                            <input type="text" name="cabelo" placeholder="Seu Cabelo" value="{{$user->sobre->cabelo}}" />
+                            <input type="text" name="cabelo" placeholder="Seu Cabelo" value="{{$user->sobre->cabelo ?? ''}}" />
                         </div>
                         <div class="col-10 inputs mb-2">
                             <select name="pes">
