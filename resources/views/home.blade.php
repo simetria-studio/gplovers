@@ -34,26 +34,28 @@
     <div class="container">
         <div class="clientes mt-5">
             @forelse ($perfis as $perfil)
-                <div class="card mb-5">
-                    <div class="imagem">
-                        <a href="{{route('perfilId', $perfil->id)}}">
-                            <img src="{{ asset('storage/user_'.$perfil->id.'/'.$perfil->fotos[0]->path) }}" />
-                        </a>
-                    </div>
-                    <div class="descricao">
-                        <div>
-                            <p>{{$perfil->local->cidade}}, {{$perfil->data->idade}}</p>
-                            @foreach ($perfil->caches as $cache)
-                                @if ($cache->nome == '15m' || $cache->nome == '30m' || $cache->nome == '1h')
-                                    <p>R$ {{number_format($cache->valor, 2, ',', '.')}}</p>
-                                    @php
-                                        break;
-                                    @endphp
-                                @endif
-                            @endforeach
+                @if ($perfil->fotos->count() > 0)
+                    <div class="card mb-5">
+                        <div class="imagem">
+                            <a href="{{route('perfilId', $perfil->id)}}">
+                                <img src="{{ asset('storage/user_'.$perfil->id.'/'.$perfil->fotos[0]->path) }}" />
+                            </a>
+                        </div>
+                        <div class="descricao">
+                            <div>
+                                <p>{{$perfil->local->cidade}}, {{$perfil->data->idade}}</p>
+                                @foreach ($perfil->caches as $cache)
+                                    @if ($cache->nome == '15m' || $cache->nome == '30m' || $cache->nome == '1h')
+                                        <p>R$ {{number_format($cache->valor, 2, ',', '.')}}</p>
+                                        @php
+                                            break;
+                                        @endphp
+                                    @endif
+                                @endforeach
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endif
             @empty
                 
             @endforelse
