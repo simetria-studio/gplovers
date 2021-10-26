@@ -99,13 +99,13 @@
                                 </div>
                                 <div class="col-12">24 Horas?: @isset($user->horario['24horas']) {{$user->horario['24horas'] == 1 ? 'SIM' : 'NÃO'}} @endif</div>
                                 <div class="col-12">Horario: <br>
-                                    <span>Inicio {{$user->horario->inicio}}</span>
-                                    <span>Fim {{$user->horario->fim}}</span>
+                                    <span>Inicio {{$user->horario->inicio ?? ''}}</span>
+                                    <span>Fim {{$user->horario->fim ?? ''}}</span>
                                 </div>
                                 <div class="col-12">Caches: <br>
                                     @if ($user->caches)
                                         @foreach ($user->caches as $cache)
-                                            <span>{{$cache->nome}} - R$ {{$cache->valor}}</span>
+                                            <span>{{$cache->nome ?? ''}} - R$ {{$cache->valor ?? ''}}</span>
                                         @endforeach
                                     @endif
                                 </div>
