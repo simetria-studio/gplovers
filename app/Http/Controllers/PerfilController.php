@@ -226,7 +226,7 @@ class PerfilController extends Controller
             case 'fotos':
                 $originalPath = storage_path('app/public/user_'.auth()->user()->id.'/');
                 if (!file_exists($originalPath)) {
-                    mkdir($originalPath, 777, true);
+                    mkdir($originalPath, 0777, true);
                 }
 
                 if(isset($request->foto)){
