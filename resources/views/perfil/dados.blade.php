@@ -71,7 +71,7 @@
                 </div>
             @endif
 
-            @if (isset($user->lugares))
+            @if ($user->lugares->count() > 0)
                 <div class="col-12 my-2">
                     <div class="card-c">
                         <div class="card-c-body">
