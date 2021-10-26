@@ -97,7 +97,7 @@
                                         @endforeach
                                     @endif
                                 </div>
-                                <div class="col-12">24 Horas?: {{$user->horario['24horas'] == 1 ? 'SIM' : 'NÃO'}}</div>
+                                <div class="col-12">24 Horas?: @isset($user->horario['24horas']) {{$user->horario['24horas'] == 1 ? 'SIM' : 'NÃO'}} @endif</div>
                                 <div class="col-12">Horario: <br>
                                     <span>Inicio {{$user->horario->inicio}}</span>
                                     <span>Fim {{$user->horario->fim}}</span>
