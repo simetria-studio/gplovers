@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Estado;
 use App\Models\Cidade;
 use App\Models\Bairro;
@@ -24,5 +25,11 @@ class HomeController extends Controller
     {
         $bairros = Bairro::where('localidade_municipio_id', $id)->get();
         return response()->json($bairros);
+    }
+
+    public function home()
+    {
+        $perfis = User::where('publish', 1)->get();
+        return view('home', get_defined_vars());
     }
 }

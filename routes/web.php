@@ -26,9 +26,8 @@ Route::get('/buscaBairro/{id}', [HomeController::class, 'buscaBairro']);
 // Route::get('/idade', function () {
 //     return view('idade');
 // });
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+Route::get('/', [HomeController::class, 'home'])->name('home');
+Route::get('/perfil/dados/{id}', [HomeController::class, 'perfilId'])->name('perfilId');
 
 Route::post('/logout',  [LoginController::class, 'logout'])->name('logout');
 Route::get('/login',  [LoginController::class, 'index'])->name('login');

@@ -77,19 +77,25 @@
                         <div class="card-c-body">
                             <div class="row">
                                 <div class="col-12">Lugares: <br>
-                                    @foreach ($user->lugares as $lugar)
-                                        <span>{{$lugar->lugar_id}}</span>
-                                    @endforeach
+                                    @if (isset($user->lugares))
+                                        @foreach ($user->lugares as $lugar)
+                                            <span>{{$lugar->lugar_id}}</span>
+                                        @endforeach
+                                    @endif
                                 </div>
                                 <div class="col-12">Serviços: <br>
-                                    @foreach ($user->servicos as $servico)
-                                        <span>{{$servico->servico_id}}</span>
-                                    @endforeach
+                                    @if ($user->servicos)
+                                        @foreach ($user->servicos as $servico)
+                                            <span>{{$servico->servico_id}}</span>
+                                        @endforeach
+                                    @endif
                                 </div>
                                 <div class="col-12">Dias: <br>
-                                    @foreach ($user->horario->dias as $dia)
-                                        <span>{{$dia}}</span>
-                                    @endforeach
+                                    @if (isset($user->horario))
+                                        @foreach ($user->horario->dias as $dia)
+                                            <span>{{$dia}}</span>
+                                        @endforeach
+                                    @endif
                                 </div>
                                 <div class="col-12">24 Horas?: {{$user->horario['24horas'] == 1 ? 'SIM' : 'NÃO'}}</div>
                                 <div class="col-12">Horario: <br>
@@ -97,9 +103,11 @@
                                     <span>Fim {{$user->horario->fim}}</span>
                                 </div>
                                 <div class="col-12">Caches: <br>
-                                    @foreach ($user->caches as $cache)
-                                        <span>{{$cache->nome}} - R$ {{$cache->valor}}</span>
-                                    @endforeach
+                                    @if ($user->caches)
+                                        @foreach ($user->caches as $cache)
+                                            <span>{{$cache->nome}} - R$ {{$cache->valor}}</span>
+                                        @endforeach
+                                    @endif
                                 </div>
                             </div>
                         </div>
