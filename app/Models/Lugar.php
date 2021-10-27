@@ -16,6 +16,6 @@ class Lugar extends Model
 
     public function lugar()
     {
-        return $this->hasOne(TipoLugar::class, 'lugar_id');
+        return $this->hasOne(TipoLugar::class, 'id', 'lugar_id');
     }
 }

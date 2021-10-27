@@ -14,12 +14,104 @@ $(document).ready(function() {
 
     });
 
+    $(document).on('keyup focus', '[data-autocomplete="true"]', function(){
+        var thiss = $(this);
+        var tabela = $(this).data('tabela');
+
+        $.ajax({
+            url: '/buscaAutocomplete',
+            type: 'POST',
+            data: {tabela: tabela, nome: thiss.val()},
+            success: (data) => {
+                thiss.autocomplete({
+                    source: data
+                });
+            }
+        });
+    });
+
+    $(document).on('click', '.btn-pesquisa', function(){
+        var data = {};
+        $('.nav-filtro').css({'height': 0});
+        $('.nav-filtro').find('.nav-filtro-selecao').css({'height': 0});
+
+        $('.pesquisa').each(function(){
+            data[$(this).attr('name')] = $(this).val();
+        });
+        $('.clientes').empty().html('<div class="div-spinner"><div class="spinner-border text-danger" style="width: 15rem; height: 15rem;" role="status"><span class="visually-hidden">Loading...</span></div></div>');
+
+        $.ajax({
+            url: '/buscaAnuncios',
+            type: 'POST',
+            data: data,
+            success: (data) => {
+                // console.log(data);
+                $('.clientes').empty();
+
+                $.each(data, (key, value) => {
+                    // console.log(value);
+                    if(value.fotos.length > 0){
+                        var route = '';
+                        $.ajax({url:'/geraSlug',type:'POST', data:{nome: value.data.nome, id: value.id},async: false,success: (data)=> {route = data.route;}});
+
+                        var foto_random = Math.floor(Math.random() * (value.fotos.length));
+
+                        var caches = '';
+                        for(var i = 0; value.caches.length; i++){
+                            if (value.caches[i].nome == '15m' || value.caches[i].nome == '30m' || value.caches[i].nome == '1h'){
+                                caches += 
+                                    '<p>R$ '+(parseFloat(value.caches[i].valor).toFixed(2).replace('.',','))+'</p>'
+                                ;
+                                break;
+                            }
+                        }
+
+                        $('.clientes').append(
+                            '<div class="card mb-5">'+
+                                '<div class="imagem">'+
+                                    '<a href="'+route+'">'+
+                                        '<img src="/storage/user_'+value.id+'/'+(value.fotos[foto_random].path)+'" />'+
+                                    '</a>'+
+                                '</div>'+
+                                '<div class="descricao">'+
+                                    '<div>'+
+                                        '<p>'+value.local.cidade+', '+value.data.idade+' Anos</p>'+
+                                        caches+
+                                    '</div>'+
+                                '</div>'+
+                            '</div>'
+                        );
+                    }
+                });
+            }
+        });
+    });
+
     $('.select2').select2();
 
     $('.real').mask('000.000,00', {reverse: true});
     $('[name="tamanho"]').mask('0,00', {reverse: true});
     $('[name="peso"]').mask('000,00', {reverse: true});
     $('.horas').mask('00:00', {reverse: true});
+
+    $(document).on('click', '.btn-filtro', function(e) {
+        e.preventDefault();
+        var height_total = $(window).height();
+        var height_header = $('.header').height();
+        var height_nav_filter = $('.nav-filtro').height();
+
+        if(height_nav_filter == '0'){
+            $('.nav-filtro').css({'height': (height_total - height_header)});
+            $('.nav-filtro').find('.nav-filtro-selecao').css({'height': (height_total - height_header)});
+            $('body').css('overflow', 'hidden');
+        }else{
+            $('.nav-filtro').css({'height': 0});
+            $('.nav-filtro').find('.nav-filtro-selecao').css({'height': 0});
+            $('body').css('overflow', 'auto');
+
+            $('.btn-pesquisa').trigger('click');
+        }
+    });
 
     $(function(){
         if($('[name="estado"]')){

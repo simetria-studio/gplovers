@@ -83,7 +83,7 @@
           <span class="cache-bg">
             {{$servico->servico->servico}}
             @isset ($servicos_adicional[$servico->servico_id])
-                (custo adicional R$ {{$servicos_adicional[$servico->servico_id]}})
+                (custo adicional R$ {{number_format($servicos_adicional[$servico->servico_id], 2, ',', '.')}})
             @endisset
           </span>
         @endforeach
@@ -98,27 +98,31 @@
         <p>lugar de encontro</p>
       </div>
       <div class="encontro">
-        <span class="cache-bg">A domicilio</span>
-        <span class="cache-bg">Com local</span>
-        <span class="cache-bg">Em Hotel</span>
+        @foreach ($perfil->lugares as $lugar)
+          <span class="cache-bg">{{$lugar->lugar->lugar}}</span>
+        @endforeach
+        {{-- <span class="cache-bg">Com local</span>
+        <span class="cache-bg">Em Hotel</span> --}}
       </div>
     </div>
   </div>
-  <div class="rodape">
+  <div class="rodape" @if($perfil->contato->whats == 0) style="grid-template-columns: repeat(2, auto);" @endif>
+    @if ($perfil->contato->whats == 1)
       <div class="whatsapp">
-          <a href="">
-              <span>whatsapp</span>
-          </a>
+        <a target="_blank" href="https://api.whatsapp.com/send?phone=55{{str_replace(['(',')',' ','-'],'', $perfil->contato->telefone)}}">
+            <span>whatsapp</span>
+        </a>
       </div>
-      <div class="mapa">
-          <a href="">
-              <span>mapa</span>
-          </a>
-      </div>
-      <div class="fone">
-          <a href="">
-              <span>fone</span>
-          </a>
-      </div>
+    @endif
+    <div class="mapa">
+      <a href="">
+          <span>mapa</span>
+      </a>
+    </div>
+    <div class="fone">
+      <a href="tel:{{str_replace(['(',')',' ','-'],'', $perfil->contato->telefone)}}">
+          <span>fone</span>
+      </a>
+    </div>
   </div>
 @endsection

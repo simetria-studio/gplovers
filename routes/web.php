@@ -18,6 +18,10 @@ use App\Http\Controllers\Auth\RegisterController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+// Bucsa dados tabelas
+Route::post('/buscaAutocomplete', [HomeController::class, 'buscaAutocomplete']);
+Route::post('/buscaAnuncios', [HomeController::class, 'buscaAnuncios']);
+Route::post('/geraSlug', [HomeController::class, 'geraSlug']);
 
 Route::get('/buscaEstado', [HomeController::class, 'buscaEstado']);
 Route::get('/buscaCidade/{id}', [HomeController::class, 'buscaCidade']);
