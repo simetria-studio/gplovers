@@ -236,6 +236,7 @@ body {
     grid-gap: 10px;
   }
   .cache-bg {
+    white-space: nowrap;
     height: 25px;
     background-color: #ff0000;
     border-radius: 5px;
@@ -249,9 +250,9 @@ body {
   }
   
   .meu-servicos {
-    display: grid;
-    grid-template-columns: repeat(3, auto);
-    grid-gap: 10px;
+    // display: grid;
+    // grid-template-columns: repeat(3, auto);
+    // grid-gap: 10px;
   }
   
   .encontro {

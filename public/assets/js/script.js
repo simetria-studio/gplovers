@@ -56,16 +56,6 @@ $(document).ready(function() {
 
                         var foto_random = Math.floor(Math.random() * (value.fotos.length));
 
-                        var caches = '';
-                        for(var i = 0; value.caches.length; i++){
-                            if (value.caches[i].nome == '15m' || value.caches[i].nome == '30m' || value.caches[i].nome == '1h'){
-                                caches += 
-                                    '<p>R$ '+(parseFloat(value.caches[i].valor).toFixed(2).replace('.',','))+'</p>'
-                                ;
-                                break;
-                            }
-                        }
-
                         $('.clientes').append(
                             '<div class="card mb-5">'+
                                 '<div class="imagem">'+
@@ -75,8 +65,8 @@ $(document).ready(function() {
                                 '</div>'+
                                 '<div class="descricao">'+
                                     '<div class="text-center">'+
-                                        '<p>'+value.local.cidade+', '+value.data.idade+' Anos</p>'+
-                                        caches+
+                                        '<p>'+((value.data.nome.split(' '))[0])+', '+value.data.idade+' Anos</p>'+
+                                        '<p>'+value.local.cidade+'/'+value.local.estado+'</p>'+
                                     '</div>'+
                                 '</div>'+
                             '</div>'

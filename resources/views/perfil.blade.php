@@ -78,14 +78,14 @@
       <div>
         <p>meus serviços</p>
       </div>
-      <div class="meu-servicos">
+      <div class="meu-servicos row">
         @foreach ($perfil->servicos as $servico)
-          <span class="cache-bg">
+          <div class="cache-bg col my-1">
             {{$servico->servico->servico}}
             @isset ($servicos_adicional[$servico->servico_id])
                 (custo adicional R$ {{number_format($servicos_adicional[$servico->servico_id], 2, ',', '.')}})
             @endisset
-          </span>
+          </div>
         @endforeach
         {{-- <span class="cache-bg">Oral</span>
         <span class="cache-bg">Massagem erótica</span>
