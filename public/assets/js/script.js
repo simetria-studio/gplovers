@@ -74,7 +74,7 @@ $(document).ready(function() {
                                     '</a>'+
                                 '</div>'+
                                 '<div class="descricao">'+
-                                    '<div>'+
+                                    '<div class="text-center">'+
                                         '<p>'+value.local.cidade+', '+value.data.idade+' Anos</p>'+
                                         caches+
                                     '</div>'+
