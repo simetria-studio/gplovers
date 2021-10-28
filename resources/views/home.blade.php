@@ -123,16 +123,9 @@
                             </a>
                         </div>
                         <div class="descricao">
-                            <div>
-                                <p>{{$perfil->local->cidade}}, {{$perfil->data->idade}}</p>
-                                @foreach ($perfil->caches as $cache)
-                                    @if ($cache->nome == '15m' || $cache->nome == '30m' || $cache->nome == '1h')
-                                        <p>R$ {{number_format($cache->valor, 2, ',', '.')}}</p>
-                                        @php
-                                            break;
-                                        @endphp
-                                    @endif
-                                @endforeach
+                            <div class="text-center">
+                                <p>{{explode(' ', $perfil->data->nome)[0]}}, {{$perfil->data->idade}} Anos</p>
+                                <p>{{$perfil->local->cidade}}/{{$perfil->local->estado}}</p>
                             </div>
                         </div>
                     </div>

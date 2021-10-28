@@ -50,6 +50,20 @@ class PerfilController extends Controller
         'Outros',
     ];
 
+    public $pes = [
+        '34',
+        '35',
+        '36',
+        '37',
+        '38',
+        '39',
+        '40',
+        '41',
+        '42',
+        '43',
+        '44',
+    ];
+
     public function conta()
     {
         return view('perfil.conta', get_defined_vars());
@@ -99,6 +113,7 @@ class PerfilController extends Controller
         $dias = $this->dias;
         $olhos = $this->olhos;
         $cabelos = $this->cabelos;
+        $pes = $this->pes;
 
         $user = auth()->user();
         $tipo_lugares = TipoLugar::all();

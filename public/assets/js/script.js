@@ -414,7 +414,7 @@ $(document).ready(function() {
     });
 
     // Novo chache
-    $(document).on('click', '.btn-new-chache', function(){
+    $(document).on('click', '.btn-new-cache', function(){
         var caches = $('.caches');
         var cache_inputs = parseInt($('.caches').find('.cache_inputs').val()) || 0;
 
@@ -423,9 +423,23 @@ $(document).ready(function() {
             if($(this).hasClass('d-none') == false) cache += 1;
         });
 
-        if($(caches.find('.cache')[cache]).hasClass('d-none')) $(caches.find('.cache')[cache]).removeClass('d-none');
+        if($(caches.find('.cache')[cache]).hasClass('d-none')) {
+            $(caches.find('.cache')[cache]).removeClass('d-none');
+            $(caches.find('.cache')[cache-1]).find('.btn-remove-cache').parent().addClass('d-none');
+            $(caches.find('.cache')[cache]).find('.btn-remove-cache').parent().removeClass('d-none');
+        }
 
         if(cache == cache_inputs) $(this).addClass('d-none');
+    });
+    $(document).on('click', '.btn-remove-cache', function(){
+        $('.btn-new-cache').removeClass('d-none');
+        var btn = $(this);
+        var cache_atual = btn.parent().parent();
+        var cache_previous = btn.parent().parent().prev();
+
+        btn.parent().addClass('d-none');
+        cache_atual.addClass('d-none').find('input').val('');
+        cache_previous.find('.btn-remove-cache').parent().removeClass('d-none');
     });
 
     // Cookies-Idade

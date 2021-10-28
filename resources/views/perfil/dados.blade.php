@@ -15,7 +15,7 @@
     </div>
     <div class="container">
         <div class="row mt-3 justify-content-center">
-            <div class="col-10 mb-3 d-grid"><a href="{{route('perfil.dados.editar')}}" class="btn btn-c-purple">Atualizar Anuncio</a></div>
+            <div class="col-10 mb-3 d-grid"><a href="{{route('perfil.dados.editar')}}" class="btn btn-c-purple">{{isset($user->data) ? 'Atualizar Anuncio' : 'Criar Anuncio'}}</a></div>
 
             <div class="col-10 mb-3 text-center"><h3>PUBLICADO - {{$user->publish == 1 ? 'SIM' : 'NÃO'}}</h3></div>
 
@@ -115,7 +115,7 @@
                 </div>
             @endif
 
-            @if (isset($user->fotos))
+            @if ($user->fotos->count() > 0)
             <div class="col-12 my-2">
                 <div class="card-c">
                     <div class="card-c-body">

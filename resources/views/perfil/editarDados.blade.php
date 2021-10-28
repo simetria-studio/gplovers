@@ -123,9 +123,9 @@
                         <div class="col-10 inputs mb-2">
                             <select name="pes">
                                 <option value="">- Tamanho dos Pes -</option>
-                                <option value="P" @isset($user->sobre->pes) @if($user->sobre->pes == 'P') selected @endif @endisset>Pequeno</option>
-                                <option value="M" @isset($user->sobre->pes) @if($user->sobre->pes == 'M') selected @endif @endisset>Medio</option>
-                                <option value="G" @isset($user->sobre->pes) @if($user->sobre->pes == 'G') selected @endif @endisset>Grande</option>
+                                @foreach ($pes as $pe)
+                                    <option value="{{$pe}}" @isset($user->sobre->pes) @if($user->sobre->pes == $pe) selected @endif @endisset>{{$pe}}</option>
+                                @endforeach
                             </select>
                         </div>
 
@@ -229,7 +229,7 @@
                         <div class="col-12 text-center my-3"><h2>Valores dos Serviços</h2></div>
 
                         <div class="col-10 caches inputs mb-2">
-                            <input type="hidden" class="cache_inputs" value="{{((4+$tipo_servicos->count()) - (isset($user->caches) ? $user->caches->count() : 0))}}">
+                            <input type="hidden" class="cache_inputs" value="{{(4+$tipo_servicos->count())}}">
                             @isset($user->caches)
                                 @foreach ($user->caches as $key => $cache)
                                     <div class="cache border rounded my-1 py-2 px-1">
@@ -245,6 +245,9 @@
                                             </optgroup>
                                         </select>
                                         <input type="text" name="cache[{{((3+$tipo_servicos->count())+$key)}}][valor]" value="{{number_format($cache->valor, 2, '.', ',')}}" class="real mt-2" placeholder="Valor do Serviço">
+                                        <div class="mt-2 d-grid d-none">
+                                            <button type="button" class="btn btn-c-purple btn-remove-cache">Remover</button>
+                                        </div>
                                     </div>
                                 @endforeach
                             @endisset
@@ -262,12 +265,15 @@
                                         </optgroup>
                                     </select>
                                     <input type="text" name="cache[{{$i}}][valor]" class="real mt-2" placeholder="Valor do Serviço">
+                                    <div class="mt-2 d-grid @if($user->caches->count() == 0) d-none @endif @if($i >= 1) d-none @endif">
+                                        <button type="button" class="btn btn-c-purple btn-remove-cache">Remover</button>
+                                    </div>
                                 </div>
                             @endfor
                         </div>
 
                         <div class="col-10 mb-2 text-center">
-                            <button type="button" class="btn btn-c-purple btn-new-chache">ADICIONAR CACHE</button>
+                            <button type="button" class="btn btn-c-purple btn-new-cache">ADICIONAR CACHE</button>
                         </div>
 
                         <div class="col-10">
@@ -318,7 +324,7 @@
 
                         <div class="col-10 checkbox justify-content-start mb-3">
                             <input class="me-2" type="checkbox" name="publish" value="true" @if($user->publish == 1) checked @endif />
-                            <label for="">Publicar Perfil?</label>
+                            <label for="">Publicar Anuncio?</label>
                         </div>
 
                         <div class="col-10">

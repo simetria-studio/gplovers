@@ -15,7 +15,7 @@
     </div>
     <div class="container">
         <div class="row mt-3 justify-content-center">
-            <div class="col-12">
+            <div class="col-12 my-2">
                 <div class="card-c">
                     <div class="card-c-body">
                         <div class="row">
@@ -29,6 +29,8 @@
                     </div>
                 </div>
             </div>
+
+            <div class="col-12 my-2 d-grid"><a href="{{route('perfil.dados')}}" class="btn btn-c-purple">ANUNCIAR</a></div>
         </div>
     </div>
 @endsection

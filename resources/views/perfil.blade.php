@@ -49,7 +49,7 @@
 
     <div class="caches mb-3">
       <div>
-        <p>MEU CHACHê</p>
+        <p>MEU CACHÊ</p>
       </div>
       <div class="meu-cache">
         @foreach ($perfil->caches as $cache)

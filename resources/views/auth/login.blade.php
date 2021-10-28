@@ -17,7 +17,7 @@
                         </div>
 
                         <div class="checkbox mt-3">
-                            <input name="remember" type="checkbox">
+                            <input name="remember" type="checkbox" class="me-2">
                             <label for="remember">LEMBRAR ACESSO</label>
                         </div>
 
