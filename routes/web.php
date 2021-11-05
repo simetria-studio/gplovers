@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PerfilController;
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\PlanController;
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -49,6 +51,13 @@ Route::middleware(['auth:web'])->group(function () {
 
         Route::get('/dados/editar', [PerfilController::class, 'editarDados'])->name('perfil.dados.editar');
         Route::post('/dados/atualizar', [PerfilController::class, 'atualizarDados'])->name('perfil.dados.atualizar');
+
+        Route::get('/planos', [PlanController::class, 'index'])->name('plan');
+        Route::get('/checkout-pix/{id}', [PlanController::class, 'checkoutPix'])->name('checkout.pix');
+        Route::get('/checkout-finalizado', [PlanController::class, 'checkoutFinalizado'])->name('checkout.finalizado');
+
+        Route::get('/checkout/{id}', [CheckoutController::class, 'checkoutView'])->name('checkout');
+        Route::post('/checkout-finalizar', [CheckoutController::class, 'checkout'])->name('checkout.finalizar');
     });
     // Route::get('/perfil', function () {
     //     return view('index2');

@@ -20,6 +20,7 @@ class CreatePaymentsTable extends Migration
             $table->string('order_id')->nullable();
             $table->string('payment_method')->nullable();
             $table->string('url_qr')->nullable();
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }

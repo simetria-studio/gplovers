@@ -88,6 +88,7 @@
             @if (Request::routeIs('home') == false) <a href="{{ route('home') }}"> <li><h2 class="mt">Home</h2></li></a> @endif
             @if (Request::routeIs('perfil.conta') == false) <a href="{{ route('perfil.conta') }}"><li><h2 class="mb">Conta</h2></li></a> @endif
             @if (Request::routeIs('perfil.dados') == false) <a href="{{ route('perfil.dados') }}"><li><h2 class="mb">Anunciar</h2></li></a> @endif
+            <a href="{{ route('plan') }}"> <li><h2 class="mb">Planos</h2></li></a>
         </ul>
     </div>
 
@@ -109,6 +110,7 @@
     <script src="{{ asset('assets/js/form.multstep.js') }}"></script>
     <script src="{{ asset('assets/js/menu.js') }}"></script>
     <script src="{{ asset('assets/js/script.js') }}"></script>
+    <script type="module" src="{{ url('plugins/code.js') }}"></script>
 </body>
 
 </html>

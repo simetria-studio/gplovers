@@ -14,6 +14,7 @@ use App\Models\Servico;
 use App\Models\Horario;
 use App\Models\Cache;
 use App\Models\Foto;
+use App\Models\Plan;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -66,6 +67,7 @@ class PerfilController extends Controller
 
     public function conta()
     {
+        $plan = Plan::where('user_id', auth()->user()->id)->where('status', 1)->get();
         return view('perfil.conta', get_defined_vars());
     }
 

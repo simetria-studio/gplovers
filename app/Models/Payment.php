@@ -15,5 +15,6 @@ class Payment extends Model
         'order_id',
         'payment_method',
         'url_qr',
+        'status',
     ];
 }

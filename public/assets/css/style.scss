@@ -522,3 +522,16 @@ body {
   justify-content: center;
   left: 0;
 }
+
+#form-checkout {
+  .form-check-label {
+    font-size: 1.8rem;
+  }
+
+  .form-check-label.active {
+    border: 1px solid #480429;
+    padding: 5px 10px;
+    border-radius: 1rem;
+    background-color: #480429;
+  }
+}

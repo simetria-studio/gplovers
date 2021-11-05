@@ -403,7 +403,81 @@ $(document).ready(function() {
         $(this).parent().remove();
     });
 
-    // Novo chache
+    $('#primeiro').on('click', function () {
+        var card = $('#primeiro').attr('checked', true);
+        if (card) {
+            // console.log('e true');
+            $('#card').removeClass("d-none");
+        } else {
+            console.log('e falso');
+        }
+
+    });
+    $('#segundo').on('click', function () {
+        var money = $('#segundo').attr('checked', true);
+        if (money) {
+            // console.log('e true');
+            $('#card').addClass("d-none");
+        } else {
+        }
+    });
+
+    $(document).on('click', '.form-check-label', function(){
+        $('.form-check-label').removeClass('active');
+
+        $(this).addClass('active');
+    });
+
+    // Checkout
+    $(document).on('click', '#btnCheckout', function () {
+        var route = $(this).data('route');
+        var dados = $('#form-checkout').serialize();
+
+        var metodo = $('[name="metodo"]:checked').val();
+
+        var isValid = true;
+        if(metodo == 'card'){
+            $('.req').each(function () {
+                if ($(this).val() == '') {
+
+                    isValid = false;
+                    $(this).addClass('is-invalid');
+                } else {
+                    $(this).removeClass('is-invalid');
+                }
+            });
+        }
+
+        if (isValid) {
+            $.ajax({
+                url: route,
+                type: 'POST',
+                data: dados,
+                success: (data) => {
+                    console.log(data);
+                    if (data[0] == 'success') {
+                        window.location.href = data[1];
+                    }
+
+                },
+                error: (err) => {
+                    //   console.log(err.responseJSON);
+                    if (err.responseJSON == 'refused') {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Algo de Errado!',
+                            text: "Compra não autorizada, certifique que todos os dados estão corretos"
+
+                        });
+                    }
+
+                }
+
+            });
+        }
+    });
+
+    // Novo cache
     $(document).on('click', '.btn-new-cache', function(){
         var caches = $('.caches');
         var cache_inputs = parseInt($('.caches').find('.cache_inputs').val()) || 0;

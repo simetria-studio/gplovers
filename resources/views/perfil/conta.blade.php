@@ -31,6 +31,22 @@
             </div>
 
             <div class="col-12 my-2 d-grid"><a href="{{route('perfil.dados')}}" class="btn btn-c-purple">ANUNCIAR</a></div>
+
+            @if ($plan->count() < 1)
+                <div class="col-12 my-2 d-grid"><a href="{{route('plan')}}" class="btn btn-c-purple">PLANOS</a></div>
+            @else
+                <div class="col-12 my-2">
+                    <div class="card-c">
+                        <div class="card-c-body">
+                            <div class="row">
+                                <div class="col-12">Plano: {{$plan[0]->plan_name}}</div>
+                                <div class="col-12">Subidas por Dia: {{explode(' ', $plan[0]->plan_name)[0] / 7}}</div>
+                                <div class="col-12">Valor Pago: R$ {{number_format($plan[0]->value, 2, ',', '.')}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
 @endsection
