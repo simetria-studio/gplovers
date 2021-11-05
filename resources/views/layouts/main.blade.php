@@ -4,6 +4,25 @@
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>GP Lovers - Acompanhantes</title>
+    <meta name="title" content="GP Lovers - Acompanhantes">
+    <meta name="description"
+        content="Encontre acompanhantes em Curitiba, homens e mulheres, massagistas e profissionais do sexo. Procure e publique anúncios CLASSIFICADOS eróticos GRÁTIS">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://metatags.io/">
+    <meta property="og:title" content="GP Lovers - Acompanhantes">
+    <meta property="og:description"
+        content="Encontre acompanhantes em Curitiba, homens e mulheres, massagistas e profissionais do sexo. Procure e publique anúncios CLASSIFICADOS eróticos GRÁTIS">
+    <meta property="og:image"
+        content="https://metatags.io/assets/meta-tags-16a33a6a8531e519cc0936fbba0ad904e52d35f34a46c97a2c9f6f7dd7d336f2.png">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://metatags.io/">
+    <meta property="twitter:title" content="GP Lovers - Acompanhantes">
+    <meta property="twitter:description"
+        content="Encontre acompanhantes em Curitiba, homens e mulheres, massagistas e profissionais do sexo. Procure e publique anúncios CLASSIFICADOS eróticos GRÁTIS">
+    <meta property="twitter:image"
+        content="https://metatags.io/assets/meta-tags-16a33a6a8531e519cc0936fbba0ad904e52d35f34a46c97a2c9f6f7dd7d336f2.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -12,12 +31,12 @@
         rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="{{asset('plugins/jquery-ui-1.13.0/jquery-ui.min.css')}}" />
-    <link rel="stylesheet" href="{{asset('plugins/slimbox-2.05/css/slimbox2.css')}}" />
-    <link rel="stylesheet" href="{{asset('assets/css/form.multstep.min.css')}}" />
-    <link rel="stylesheet" href="{{asset('assets/css/menu.min.css')}}" />
-    <link rel="stylesheet" href="{{asset('assets/css/style.min.css')}}" />
-    <title>GP Lovers</title>
+    <link rel="stylesheet" href="{{ asset('plugins/jquery-ui-1.13.0/jquery-ui.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('plugins/slimbox-2.05/css/slimbox2.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/form.multstep.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/menu.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/style.min.css') }}" />
+
 </head>
 
 <body>
@@ -43,15 +62,31 @@
     <div class="nav-menu">
         <ul>
             @if (auth()->check())
-                <a href="#" onclick="event.preventDefault();"><li><h2 class="mb">Olá {{explode(' ', auth()->user()->name)[0]}}</h2></li></a>
-                <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><li><h2 class="mb">Sair</h2></li></a>
+                <a href="#" onclick="event.preventDefault();">
+                    <li>
+                        <h2 class="mb">Olá {{ explode(' ', auth()->user()->name)[0] }}</h2>
+                    </li>
+                </a>
+                <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <li>
+                        <h2 class="mb">Sair</h2>
+                    </li>
+                </a>
             @else
-                <a href="{{route('login')}}"><li><h2 class="mb">Login</h2></li></a>
-                <a href="{{route('register')}}"><li><h2 class="mt">Registrar-se</h2></li></a>
+                <a href="{{ route('login') }}">
+                    <li>
+                        <h2 class="mb">Login</h2>
+                    </li>
+                </a>
+                <a href="{{ route('register') }}">
+                    <li>
+                        <h2 class="mt">Registrar-se</h2>
+                    </li>
+                </a>
             @endif
-            @if(Request::routeIs('home') == false) <a href="{{route('home')}}"> <li><h2 class="mt">Home</h2></li></a> @endif
-            @if(Request::routeIs('perfil.conta') ==  false) <a href="{{route('perfil.conta')}}"><li><h2 class="mb">Conta</h2></li></a> @endif
-            @if(Request::routeIs('perfil.dados') ==  false) <a href="{{route('perfil.dados')}}"><li><h2 class="mb">Anunciar</h2></li></a> @endif
+            @if (Request::routeIs('home') == false) <a href="{{ route('home') }}"> <li><h2 class="mt">Home</h2></li></a> @endif
+            @if (Request::routeIs('perfil.conta') == false) <a href="{{ route('perfil.conta') }}"><li><h2 class="mb">Conta</h2></li></a> @endif
+            @if (Request::routeIs('perfil.dados') == false) <a href="{{ route('perfil.dados') }}"><li><h2 class="mb">Anunciar</h2></li></a> @endif
         </ul>
     </div>
 
@@ -68,11 +103,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-    <script src="{{asset('plugins/jquery-ui-1.13.0/jquery-ui.min.js')}}"></script>
-    <script src="{{asset('plugins/slimbox-2.05/js/slimbox2.js')}}"></script>
-    <script src="{{asset('assets/js/form.multstep.js')}}"></script>
-    <script src="{{asset('assets/js/menu.js')}}"></script>
-    <script src="{{asset('assets/js/script.js')}}"></script>
+    <script src="{{ asset('plugins/jquery-ui-1.13.0/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('plugins/slimbox-2.05/js/slimbox2.js') }}"></script>
+    <script src="{{ asset('assets/js/form.multstep.js') }}"></script>
+    <script src="{{ asset('assets/js/menu.js') }}"></script>
+    <script src="{{ asset('assets/js/script.js') }}"></script>
 </body>
 
 </html>
