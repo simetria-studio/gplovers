@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>GP Lovers - Acompanhantes</title>
     <meta name="title" content="GP Lovers - Acompanhantes">
+    <link rel="shortcut icon" href="{{ url('assets/img/favicon.ico') }}" />
     <meta name="description"
         content="Encontre acompanhantes em Curitiba, homens e mulheres, massagistas e profissionais do sexo. Procure e publique anúncios CLASSIFICADOS eróticos GRÁTIS">
     <meta property="og:type" content="website">
