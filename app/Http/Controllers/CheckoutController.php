@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Plan;
+use App\Models\Payment;
 use Illuminate\Http\Request;
 
 class CheckoutController extends Controller
@@ -45,12 +47,12 @@ class CheckoutController extends Controller
 
         switch($request->metodo){
             case 'card':
-                // Comanda::find($comanda->id)->update([
-                //     'payment_method' => $request->metodo,
-                //     'installments' => '1',
-                //     'troco' => $request->troco,
-                //     'status' => 2,
-                // ]);
+                Plan::find($comanda->id)->update([
+                    'user_id' => auth()->user()->id,
+                    'plan_name' => $request->plan_name,
+                    'duration' => $request->duration,
+                    'value' => $request->value,
+                ]);
 
                 $dados = [
                     'items' =>  $items,
@@ -88,22 +90,22 @@ class CheckoutController extends Controller
                 \Log::info($transaction);
 
                 $transaction = json_decode($transaction);
-                // ComandaPayment::create([
-                //     'client_id' => auth()->guard('cliente')->user()->id,
-                //     'comanda_id' => $comanda->id,
-                //     'order_id' => $transaction->id,
-                //     'payment_method' => $request->metodo,
-                //     'url_qr' => null,
-                // ]);
+                Payment::create([
+                    'user_id' => auth()->guard('cliente')->user()->id,
+                    'order_id' => $transaction->id,
+                    'payment_method' => $request->metodo,
+                    'url_qr' => null,
+                ]);
     
                 return response()->json(['success', route('comanda.finalizado')], 200);
             break;
             case 'pix':
-                // Comanda::find($comanda->id)->update([
-                //     'payment_method' => $request->metodo,
-                //     'installments' => '1',
-                //     'troco' => $request->troco,
-                // ]);
+                Plan::find($comanda->id)->update([
+                    'user_id' => auth()->user()->id,
+                    'plan_name' => $request->plan_name,
+                    'duration' => $request->duration,
+                    'value' => $request->value,
+                ]);
 
                 $dados = [
                     'items' => $items,
@@ -148,13 +150,12 @@ class CheckoutController extends Controller
 
                 $transaction = json_decode($transaction);
 
-                // $payment = ComandaPayment::create([
-                //     'client_id' => auth()->guard('cliente')->user()->id,
-                //     'comanda_id' => $comanda->id,
-                //     'order_id' => $transaction->id,
-                //     'payment_method' => $request->metodo,
-                //     'url_qr' => $transaction->charges[0]->last_transaction->qr_code_url,
-                // ]);
+                $payment = Payment::create([
+                    'user_id' => auth()->guard('cliente')->user()->id,
+                    'order_id' => $transaction->id,
+                    'payment_method' => $request->metodo,
+                    'url_qr' => $transaction->charges[0]->last_transaction->qr_code_url,
+                ]);
 
                 return response()->json(['success', route('comanda.pix', $payment->id)], 200);
             break;
